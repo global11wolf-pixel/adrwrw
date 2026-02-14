@@ -1,0 +1,33 @@
+getgenv().underground = -2.2
+ 
+local enabled = false
+local runserv = game:GetService("RunService")
+local lplr = game:GetService("Players").LocalPlayer
+local mouse = lplr:GetMouse()
+ 
+mouse.KeyDown:Connect(function(key)
+    if key == string.lower("n") then
+        pcall(function()
+            enabled = not enabled
+        end)
+    end
+end)
+ 
+local dysenc = {}
+local temp = 1
+ 
+runserv.Heartbeat:Connect(function()
+    temp = temp + 1
+    if enabled and lplr.Character and lplr.Character.HumanoidRootPart then
+        dysenc[1] = lplr.Character.HumanoidRootPart.CFrame
+        dysenc[2] = lplr.Character.HumanoidRootPart.AssemblyLinearVelocity
+        local SpoofThis = lplr.Character.HumanoidRootPart.CFrame
+        SpoofThis = (SpoofThis + Vector3.new(0, getgenv().underground, 0)) * CFrame.Angles(math.rad(90), 0, 0)
+        lplr.Character.HumanoidRootPart.CFrame = SpoofThis
+        runserv.RenderStepped:Wait()
+        if lplr.Character and lplr.Character.HumanoidRootPart then
+            lplr.Character.HumanoidRootPart.CFrame = dysenc[1]
+            lplr.Character.HumanoidRootPart.AssemblyLinearVelocity = dysenc[2]
+        end
+    end
+end)
