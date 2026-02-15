@@ -1509,98 +1509,98 @@ local UserInputService = game:GetService("UserInputService")
 
 -- Берём второй UI (MainFrame_2) как основной
 local main = MainFrame_2
-local UI = {}
-UI.main = main
-UI.tabZone = main:FindFirstChild("TabZone")
-UI.elementContainer = main:FindFirstChild("ElementContainer")
-UI.openedTabLabel = UI.elementContainer and UI.elementContainer:FindFirstChild("OpenedTab")
-UI.elementZone = UI.elementContainer and UI.elementContainer:FindFirstChild("ElementZone")
+local UIData = {}
+UIData.main = main
+UIData.tabZone = main:FindFirstChild("TabZone")
+UIData.elementContainer = main:FindFirstChild("ElementContainer")
+UIData.openedTabLabel = UIData.elementContainer and UIData.elementContainer:FindFirstChild("OpenedTab")
+UIData.elementZone = UIData.elementContainer and UIData.elementContainer:FindFirstChild("ElementZone")
 
 -- Табы
-UI.tabs = {}
-if UI.tabZone then
-    UI.tabs[1] = UI.tabZone:FindFirstChild("Tab1(selected)")
-    UI.tabs[2] = UI.tabZone:FindFirstChild("Tab2(Mouse Targeted)")
-    UI.tabs[3] = UI.tabZone:FindFirstChild("Tab3")
-    UI.tabs[4] = UI.tabZone:FindFirstChild("Tab4")
-    UI.tabs[5] = UI.tabZone:FindFirstChild("Tab5")
+UIData.tabs = {}
+if UIData.tabZone then
+    UIData.tabs[1] = UIData.tabZone:FindFirstChild("Tab1(selected)")
+    UIData.tabs[2] = UIData.tabZone:FindFirstChild("Tab2(Mouse Targeted)")
+    UIData.tabs[3] = UIData.tabZone:FindFirstChild("Tab3")
+    UIData.tabs[4] = UIData.tabZone:FindFirstChild("Tab4")
+    UIData.tabs[5] = UIData.tabZone:FindFirstChild("Tab5")
 end
 
 -- Секции
-UI.sections = {}
-if UI.elementZone then
-    UI.sections[1] = UI.elementZone:FindFirstChild("Section1")
-    UI.sections[2] = UI.elementZone:FindFirstChild("Section2")
-    UI.sections[3] = UI.elementZone:FindFirstChild("Section3")
+UIData.sections = {}
+if UIData.elementZone then
+    UIData.sections[1] = UIData.elementZone:FindFirstChild("Section1")
+    UIData.sections[2] = UIData.elementZone:FindFirstChild("Section2")
+    UIData.sections[3] = UIData.elementZone:FindFirstChild("Section3")
 end
 
 -- Элементы UI (группируем в таблицы)
-UI.elements = {}
-if UI.sections[1] then
-    local s1 = UI.sections[1]
+UIData.elements = {}
+if UIData.sections[1] then
+    local s1 = UIData.sections[1]
     local t1z = s1:FindFirstChild("Toggle 1Zone")
-    UI.elements.toggle1 = t1z and t1z:FindFirstChild("Toggle")
-    UI.elements.toggle1Mover = UI.elements.toggle1 and UI.elements.toggle1:FindFirstChild("ToggleMover")
+    UIData.elements.toggle1 = t1z and t1z:FindFirstChild("Toggle")
+    UIData.elements.toggle1Mover = UIData.elements.toggle1 and UIData.elements.toggle1:FindFirstChild("ToggleMover")
     
     local t2z = s1:FindFirstChild("Toggle 2Zone(enabled)")
-    UI.elements.toggle2 = t2z and t2z:FindFirstChild("Toggle")
-    UI.elements.toggle2Mover = UI.elements.toggle2 and UI.elements.toggle2:FindFirstChild("ToggleMover")
+    UIData.elements.toggle2 = t2z and t2z:FindFirstChild("Toggle")
+    UIData.elements.toggle2Mover = UIData.elements.toggle2 and UIData.elements.toggle2:FindFirstChild("ToggleMover")
     
     local bz = s1:FindFirstChild("ButtonZone")
-    UI.elements.button1 = bz and bz:FindFirstChild("TextButton")
+    UIData.elements.button1 = bz and bz:FindFirstChild("TextButton")
     if bz then
         for _, child in ipairs(bz:GetChildren()) do
-            if child:IsA("TextButton") and child ~= UI.elements.button1 then
-                UI.elements.button2 = child
+            if child:IsA("TextButton") and child ~= UIData.elements.button1 then
+                UIData.elements.button2 = child
                 break
             end
         end
     end
 end
 
-if UI.sections[2] then
-    local s2 = UI.sections[2]
+if UIData.sections[2] then
+    local s2 = UIData.sections[2]
     local sz = s2:FindFirstChild("SliderZone")
     local sl = sz and sz:FindFirstChild("SliderLine")
-    UI.elements.sliderLine = sl
-    UI.elements.sliderKnob = sl and sl:FindFirstChild("Frame")
+    UIData.elements.sliderLine = sl
+    UIData.elements.sliderKnob = sl and sl:FindFirstChild("Frame")
     local svf = sz and sz:FindFirstChild("SliderValue")
-    UI.elements.sliderValueLabel = svf and svf:FindFirstChildOfClass("TextLabel")
+    UIData.elements.sliderValueLabel = svf and svf:FindFirstChildOfClass("TextLabel")
     
     local bz = s2:FindFirstChild("BindZone")
-    UI.elements.bindFrame = bz and bz:FindFirstChild("Bind")
-    UI.elements.bindKeyLabel = UI.elements.bindFrame and UI.elements.bindFrame:FindFirstChild("BindName")
+    UIData.elements.bindFrame = bz and bz:FindFirstChild("Bind")
+    UIData.elements.bindKeyLabel = UIData.elements.bindFrame and UIData.elements.bindFrame:FindFirstChild("BindName")
     
     local iz = s2:FindFirstChild("InputZone")
-    UI.elements.inputFrame = iz and iz:FindFirstChild("Input")
-    UI.elements.inputValueLabel = UI.elements.inputFrame and UI.elements.inputFrame:FindFirstChild("InputValue")
+    UIData.elements.inputFrame = iz and iz:FindFirstChild("Input")
+    UIData.elements.inputValueLabel = UIData.elements.inputFrame and UIData.elements.inputFrame:FindFirstChild("InputValue")
 end
 
-if UI.sections[3] then
-    local s3 = UI.sections[3]
+if UIData.sections[3] then
+    local s3 = UIData.sections[3]
     local dz = s3:FindFirstChild("DropdownZone")
-    UI.elements.dropdownButton = dz and dz:FindFirstChild("DropdownButton")
-    UI.elements.dropdownSelected = UI.elements.dropdownButton and UI.elements.dropdownButton:FindFirstChild("Selected")
-    UI.elements.dropdownArrow = UI.elements.dropdownButton and UI.elements.dropdownButton:FindFirstChild("Arrow")
+    UIData.elements.dropdownButton = dz and dz:FindFirstChild("DropdownButton")
+    UIData.elements.dropdownSelected = UIData.elements.dropdownButton and UIData.elements.dropdownButton:FindFirstChild("Selected")
+    UIData.elements.dropdownArrow = UIData.elements.dropdownButton and UIData.elements.dropdownButton:FindFirstChild("Arrow")
 end
 
 -- Уведомления
 local notifiGui = ScreenGui:FindFirstChild("Notifi")
-UI.notifiList = notifiGui and notifiGui:FindFirstChild("NotifiList")
-UI.notificationTemplate = UI.notifiList and UI.notifiList:FindFirstChild("Notification1")
+UIData.notifiList = notifiGui and notifiGui:FindFirstChild("NotifiList")
+UIData.notificationTemplate = UIData.notifiList and UIData.notifiList:FindFirstChild("Notification1")
 
 -- HotKeys
 local hotKeysGui = ScreenGui:FindFirstChild("HotKeys")
 local hotKeysMain = hotKeysGui and hotKeysGui:FindFirstChild("MainFrame")
 local hotKey1 = hotKeysMain and hotKeysMain:FindFirstChild("HotKey1")
-UI.hotKey1KeyLabel = hotKey1 and hotKey1:FindFirstChild("Key")
+UIData.hotKey1KeyLabel = hotKey1 and hotKey1:FindFirstChild("Key")
 
 -- // Табы
 local tabNames = {"Combat", "Visual", "Misc", "World", "Settings"}
 
 local function setTab(index)
-    if UI.openedTabLabel then
-        UI.openedTabLabel.Text = tabNames[index] or "Tab " .. tostring(index)
+    if UIData.openedTabLabel then
+        UIData.openedTabLabel.Text = tabNames[index] or "Tab " .. tostring(index)
     end
 
     local function setVisual(btn, active)
@@ -1619,15 +1619,15 @@ local function setTab(index)
     end
 
     for i = 1, 5 do
-        setVisual(UI.tabs[i], index == i)
+        setVisual(UIData.tabs[i], index == i)
     end
 end
 
 setTab(1)
 
 for i = 1, 5 do
-    if UI.tabs[i] then
-        UI.tabs[i].MouseButton1Click:Connect(function() setTab(i) end)
+    if UIData.tabs[i] then
+        UIData.tabs[i].MouseButton1Click:Connect(function() setTab(i) end)
     end
 end
 
@@ -1655,30 +1655,30 @@ local function setupToggle(toggleFrame, mover)
     end)
 end
 
-setupToggle(UI.elements.toggle1, UI.elements.toggle1Mover)
-setupToggle(UI.elements.toggle2, UI.elements.toggle2Mover)
+setupToggle(UIData.elements.toggle1, UIData.elements.toggle1Mover)
+setupToggle(UIData.elements.toggle2, UIData.elements.toggle2Mover)
 
 -- // Кнопки
-if UI.elements.button1 then
-    UI.elements.button1.MouseButton1Click:Connect(function()
+if UIData.elements.button1 then
+    UIData.elements.button1.MouseButton1Click:Connect(function()
         print("Button 1 clicked")
     end)
 end
 
-if UI.elements.button2 then
-    UI.elements.button2.MouseButton1Click:Connect(function()
+if UIData.elements.button2 then
+    UIData.elements.button2.MouseButton1Click:Connect(function()
         print("Button 2 clicked")
     end)
 end
 
 -- // Слайдер 0-100
-if UI.elements.sliderLine and UI.elements.sliderKnob and UI.elements.sliderValueLabel then
-    UI.elements.sliderDragging = false
-    local sLine, sKnob, sLabel = UI.elements.sliderLine, UI.elements.sliderKnob, UI.elements.sliderValueLabel
+if UIData.elements.sliderLine and UIData.elements.sliderKnob and UIData.elements.sliderValueLabel then
+    UIData.elements.sliderDragging = false
+    local sLine, sKnob, sLabel = UIData.elements.sliderLine, UIData.elements.sliderKnob, UIData.elements.sliderValueLabel
 
     sLine.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            UI.elements.sliderDragging = true
+            UIData.elements.sliderDragging = true
             local x = input.Position.X
             local absPos = sLine.AbsolutePosition.X
             local absSize = sLine.AbsoluteSize.X
@@ -1690,12 +1690,12 @@ if UI.elements.sliderLine and UI.elements.sliderKnob and UI.elements.sliderValue
 
     sLine.InputEnded:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            UI.elements.sliderDragging = false
+            UIData.elements.sliderDragging = false
         end
     end)
 
     UserInputService.InputChanged:Connect(function(input)
-        if UI.elements.sliderDragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+        if UIData.elements.sliderDragging and input.UserInputType == Enum.UserInputType.MouseMovement then
             local x = input.Position.X
             local absPos = sLine.AbsolutePosition.X
             local absSize = sLine.AbsoluteSize.X
@@ -1708,51 +1708,51 @@ end
 
 -- // Бинд клавиши
 do
-    if UI.elements.bindFrame and UI.elements.bindKeyLabel and UI.hotKey1KeyLabel then
-        UI.elements.bindListening = false
-        UI.elements.currentKey = Enum.KeyCode.B
+    if UIData.elements.bindFrame and UIData.elements.bindKeyLabel and UIData.hotKey1KeyLabel then
+        UIData.elements.bindListening = false
+        UIData.elements.currentKey = Enum.KeyCode.B
 
         local function setKey(keyCode)
-            UI.elements.currentKey = keyCode
-            UI.elements.bindKeyLabel.Text = keyCode.Name
-            UI.hotKey1KeyLabel.Text = keyCode.Name
+            UIData.elements.currentKey = keyCode
+            UIData.elements.bindKeyLabel.Text = keyCode.Name
+            UIData.hotKey1KeyLabel.Text = keyCode.Name
         end
 
-        setKey(UI.elements.currentKey)
+        setKey(UIData.elements.currentKey)
 
-        UI.elements.bindFrame.InputBegan:Connect(function(input)
+        UIData.elements.bindFrame.InputBegan:Connect(function(input)
             if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                UI.elements.bindListening = true
-                UI.elements.bindKeyLabel.Text = "..."
+                UIData.elements.bindListening = true
+                UIData.elements.bindKeyLabel.Text = "..."
             end
         end)
 
         UserInputService.InputBegan:Connect(function(input, gp)
             if gp then return end
-            if UI.elements.bindListening and input.UserInputType == Enum.UserInputType.Keyboard then
-                UI.elements.bindListening = false
+            if UIData.elements.bindListening and input.UserInputType == Enum.UserInputType.Keyboard then
+                UIData.elements.bindListening = false
                 if input.KeyCode ~= Enum.KeyCode.Unknown then
                     setKey(input.KeyCode)
                 end
-            elseif input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == UI.elements.currentKey then
-                UI.main.Visible = not UI.main.Visible
+            elseif input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == UIData.elements.currentKey then
+                UIData.main.Visible = not UIData.main.Visible
             end
         end)
     end
 end
 
 -- // Input: просто пример смены текста
-if UI.elements.inputFrame and UI.elements.inputValueLabel then
-    UI.elements.inputFrame.InputBegan:Connect(function(input)
+if UIData.elements.inputFrame and UIData.elements.inputValueLabel then
+    UIData.elements.inputFrame.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            UI.elements.inputValueLabel.Text = "Clicked " .. os.time()
+            UIData.elements.inputValueLabel.Text = "Clicked " .. os.time()
         end
     end)
 end
 
 -- // Dropdown
 do
-    if UI.elements.dropdownButton and UI.elements.dropdownSelected and UI.elements.dropdownArrow then
+    if UIData.elements.dropdownButton and UIData.elements.dropdownSelected and UIData.elements.dropdownArrow then
         local options = {"Goida", "Svo", "Zov", "228"}
         local opened = false
 
@@ -1767,35 +1767,35 @@ do
             opt.TextColor3 = Color3.fromRGB(255, 255, 255)
             opt.TextSize = 12
             opt.Text = name
-            opt.Parent = UI.elements.dropdownButton
+            opt.Parent = UIData.elements.dropdownButton
 
             opt.MouseButton1Click:Connect(function()
-                UI.elements.dropdownSelected.Text = name
-                UI.elements.dropdownOpened = false
-                TweenService:Create(UI.elements.dropdownButton, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                UIData.elements.dropdownSelected.Text = name
+                UIData.elements.dropdownOpened = false
+                TweenService:Create(UIData.elements.dropdownButton, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
                     Size = UDim2.new(0, 111, 0, 24),
                 }):Play()
-                TweenService:Create(UI.elements.dropdownArrow, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                TweenService:Create(UIData.elements.dropdownArrow, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
                     Rotation = 0,
                 }):Play()
             end)
         end
 
-        local closedSize = UI.elements.dropdownButton.Size
+        local closedSize = UIData.elements.dropdownButton.Size
         local openSize = UDim2.new(0, 111, 0, 24 + #options * 18)
-        UI.elements.dropdownOpened = false
+        UIData.elements.dropdownOpened = false
 
         local function toggleDropdown()
-            UI.elements.dropdownOpened = not UI.elements.dropdownOpened
-            TweenService:Create(UI.elements.dropdownButton, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-                Size = UI.elements.dropdownOpened and openSize or closedSize,
+            UIData.elements.dropdownOpened = not UIData.elements.dropdownOpened
+            TweenService:Create(UIData.elements.dropdownButton, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                Size = UIData.elements.dropdownOpened and openSize or closedSize,
             }):Play()
-            TweenService:Create(UI.elements.dropdownArrow, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-                Rotation = UI.elements.dropdownOpened and 180 or 0,
+            TweenService:Create(UIData.elements.dropdownArrow, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                Rotation = UIData.elements.dropdownOpened and 180 or 0,
             }):Play()
         end
 
-        UI.elements.dropdownButton.InputBegan:Connect(function(input)
+        UIData.elements.dropdownButton.InputBegan:Connect(function(input)
             if input.UserInputType == Enum.UserInputType.MouseButton1 then
                 toggleDropdown()
             end
@@ -1805,12 +1805,12 @@ end
 
 -- // Нотификации
 local function ShowNotification(text, duration)
-    if not (UI.notificationTemplate and UI.notifiList) then return end
+    if not (UIData.notificationTemplate and UIData.notifiList) then return end
     duration = duration or 3
 
-    local n = UI.notificationTemplate:Clone()
+    local n = UIData.notificationTemplate:Clone()
     n.Visible = true
-    n.Parent = UI.notifiList
+    n.Parent = UIData.notifiList
 
     local label = n:FindFirstChild("NotifiText", true)
     if label and label:IsA("TextLabel") then
@@ -1841,8 +1841,8 @@ ShowNotification("PizdecWare UI Loaded", 2)
 UserInputService.InputBegan:Connect(function(input, gp)
     if gp then return end
     if input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == Enum.KeyCode.RightControl then
-        if UI.main then
-            UI.main.Visible = not UI.main.Visible
+        if UIData.main then
+            UIData.main.Visible = not UIData.main.Visible
         end
     end
 end)
@@ -1853,25 +1853,25 @@ end)
 
 -- Создаем объект Library для экспорта
 local Library = {
-    UI = UI,
+    UI = UIData,
     MainFrame = MainFrame_2,
-    TabZone = UI.tabZone,
-    ElementContainer = UI.elementContainer,
-    ElementZone = UI.elementZone,
-    OpenedTab = UI.openedTabLabel,
+    TabZone = UIData.tabZone,
+    ElementContainer = UIData.elementContainer,
+    ElementZone = UIData.elementZone,
+    OpenedTab = UIData.openedTabLabel,
     Tabs = {
-        Tab1 = UI.tabs[1],
-        Tab2 = UI.tabs[2],
-        Tab3 = UI.tabs[3],
-        Tab4 = UI.tabs[4],
-        Tab5 = UI.tabs[5]
+        Tab1 = UIData.tabs[1],
+        Tab2 = UIData.tabs[2],
+        Tab3 = UIData.tabs[3],
+        Tab4 = UIData.tabs[4],
+        Tab5 = UIData.tabs[5]
     },
     Sections = {
-        Section1 = UI.sections[1],
-        Section2 = UI.sections[2],
-        Section3 = UI.sections[3]
+        Section1 = UIData.sections[1],
+        Section2 = UIData.sections[2],
+        Section3 = UIData.sections[3]
     },
-    Elements = UI.elements,
+    Elements = UIData.elements,
     ShowNotification = ShowNotification,
     setTab = setTab,
     TweenService = TweenService,
