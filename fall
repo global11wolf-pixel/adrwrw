@@ -2290,13 +2290,17 @@ function Library:CreateBind(section, name, defaultKey, callback)
     line.AnchorPoint = Vector2.new(0, 0)
     line.Parent = bindZone
     
-    local bindFrame = Instance.new("Frame")
+    local bindFrame = Instance.new("TextButton")
     bindFrame.Name = "Bind"
     bindFrame.Size = UDim2.new(0, 60, 0, 15)
     bindFrame.Position = UDim2.new(0.6000000238418579, 0, 0.23333333432674408, 0)
     bindFrame.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
     bindFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
     bindFrame.BorderSizePixel = 0
+    bindFrame.Text = ""
+    bindFrame.TextColor3 = Color3.fromRGB(0, 0, 0)
+    bindFrame.TextSize = 14
+    bindFrame.Font = Enum.Font.SourceSans
     bindFrame.AnchorPoint = Vector2.new(0, 0)
     
     local bindCorner = Instance.new("UICorner")
