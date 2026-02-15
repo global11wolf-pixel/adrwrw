@@ -345,7 +345,7 @@ local ScreenGui = Instance.new("ScreenGui")
                     TabName.BackgroundTransparency = 1
                     TabName.BorderColor3 = Color3.fromRGB(0, 0, 0)
                     TabName.BorderSizePixel = 0
-                    TabName.Text = "Tab 1"
+                    TabName.Text = "Combat"
                     TabName.TextColor3 = Color3.fromRGB(150, 17, 255)
                     TabName.TextSize = 14
                     TabName.Font = Enum.Font.SourceSansBold
@@ -391,7 +391,7 @@ local ScreenGui = Instance.new("ScreenGui")
                     TabName_2.BackgroundTransparency = 1
                     TabName_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
                     TabName_2.BorderSizePixel = 0
-                    TabName_2.Text = "Tab 2"
+                    TabName_2.Text = "Visual"
                     TabName_2.TextColor3 = Color3.fromRGB(255, 255, 255)
                     TabName_2.TextSize = 14
                     TabName_2.Font = Enum.Font.SourceSansBold
@@ -437,13 +437,105 @@ local ScreenGui = Instance.new("ScreenGui")
                     TabName_3.BackgroundTransparency = 1
                     TabName_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
                     TabName_3.BorderSizePixel = 0
-                    TabName_3.Text = "Tab 3"
+                    TabName_3.Text = "Misc"
                     TabName_3.TextColor3 = Color3.fromRGB(161, 161, 161)
                     TabName_3.TextSize = 14
                     TabName_3.Font = Enum.Font.SourceSansBold
                     TabName_3.AnchorPoint = Vector2.new(0, 0)
                     TabName_3.Parent = Tab3
                 Tab3.Parent = TabZone
+
+                local Tab4 = Instance.new("TextButton")
+                Tab4.Name = "Tab4"
+                Tab4.Size = UDim2.new(0, 120, 0, 25)
+                Tab4.Position = UDim2.new(0.06428571790456772, 0, 0.3214285671710968, 0)
+                Tab4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Tab4.BackgroundTransparency = 1
+                Tab4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                Tab4.BorderSizePixel = 0
+                Tab4.Text = ""
+                Tab4.TextColor3 = Color3.fromRGB(0, 0, 0)
+                Tab4.TextSize = 14
+                Tab4.Font = Enum.Font.SourceSans
+                Tab4.AnchorPoint = Vector2.new(0, 0)
+
+                    local UICorner_11 = Instance.new("UICorner")
+                    UICorner_11.Parent = Tab4
+
+                    local TabLogo_4 = Instance.new("ImageLabel")
+                    TabLogo_4.Name = "TabLogo"
+                    TabLogo_4.Size = UDim2.new(0, 14, 0, 14)
+                    TabLogo_4.Position = UDim2.new(0.06666667014360428, 0, 0.20000000298023224, 0)
+                    TabLogo_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    TabLogo_4.BackgroundTransparency = 1
+                    TabLogo_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                    TabLogo_4.BorderSizePixel = 0
+                    TabLogo_4.Image = "rbxassetid://12614416478"
+                    TabLogo_4.ImageColor3 = Color3.fromRGB(161, 161, 161)
+                    TabLogo_4.AnchorPoint = Vector2.new(0, 0)
+                    TabLogo_4.Parent = Tab4
+
+                    local TabName_4 = Instance.new("TextLabel")
+                    TabName_4.Name = "TabName"
+                    TabName_4.Size = UDim2.new(0, 89, 0, 23)
+                    TabName_4.Position = UDim2.new(0.25, 0, -0.03999878093600273, 0)
+                    TabName_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    TabName_4.BackgroundTransparency = 1
+                    TabName_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                    TabName_4.BorderSizePixel = 0
+                    TabName_4.Text = "World"
+                    TabName_4.TextColor3 = Color3.fromRGB(161, 161, 161)
+                    TabName_4.TextSize = 14
+                    TabName_4.Font = Enum.Font.SourceSansBold
+                    TabName_4.AnchorPoint = Vector2.new(0, 0)
+                    TabName_4.Parent = Tab4
+                Tab4.Parent = TabZone
+
+                local Tab5 = Instance.new("TextButton")
+                Tab5.Name = "Tab5"
+                Tab5.Size = UDim2.new(0, 120, 0, 25)
+                Tab5.Position = UDim2.new(0.06428571790456772, 0, 0.4107142984867096, 0)
+                Tab5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Tab5.BackgroundTransparency = 1
+                Tab5.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                Tab5.BorderSizePixel = 0
+                Tab5.Text = ""
+                Tab5.TextColor3 = Color3.fromRGB(0, 0, 0)
+                Tab5.TextSize = 14
+                Tab5.Font = Enum.Font.SourceSans
+                Tab5.AnchorPoint = Vector2.new(0, 0)
+
+                    local UICorner_12 = Instance.new("UICorner")
+                    UICorner_12.Parent = Tab5
+
+                    local TabLogo_5 = Instance.new("ImageLabel")
+                    TabLogo_5.Name = "TabLogo"
+                    TabLogo_5.Size = UDim2.new(0, 14, 0, 14)
+                    TabLogo_5.Position = UDim2.new(0.06666667014360428, 0, 0.20000000298023224, 0)
+                    TabLogo_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    TabLogo_5.BackgroundTransparency = 1
+                    TabLogo_5.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                    TabLogo_5.BorderSizePixel = 0
+                    TabLogo_5.Image = "rbxassetid://12614416478"
+                    TabLogo_5.ImageColor3 = Color3.fromRGB(161, 161, 161)
+                    TabLogo_5.AnchorPoint = Vector2.new(0, 0)
+                    TabLogo_5.Parent = Tab5
+
+                    local TabName_5 = Instance.new("TextLabel")
+                    TabName_5.Name = "TabName"
+                    TabName_5.Size = UDim2.new(0, 89, 0, 23)
+                    TabName_5.Position = UDim2.new(0.25, 0, -0.03999878093600273, 0)
+                    TabName_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    TabName_5.BackgroundTransparency = 1
+                    TabName_5.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                    TabName_5.BorderSizePixel = 0
+                    TabName_5.Text = "Settings"
+                    TabName_5.TextColor3 = Color3.fromRGB(161, 161, 161)
+                    TabName_5.TextSize = 14
+                    TabName_5.Font = Enum.Font.SourceSansBold
+                    TabName_5.AnchorPoint = Vector2.new(0, 0)
+                    TabName_5.Parent = Tab5
+                Tab5.Parent = TabZone
             TabZone.Parent = MainFrame_2
 
             local ProfileZone = Instance.new("Frame")
@@ -1282,7 +1374,7 @@ local ScreenGui = Instance.new("ScreenGui")
                 OpenedTab.BackgroundTransparency = 1
                 OpenedTab.BorderColor3 = Color3.fromRGB(0, 0, 0)
                 OpenedTab.BorderSizePixel = 0
-                OpenedTab.Text = "Tab 1"
+                OpenedTab.Text = "Combat"
                 OpenedTab.TextColor3 = Color3.fromRGB(255, 255, 255)
                 OpenedTab.TextSize = 16
                 OpenedTab.Font = Enum.Font.SourceSansBold
@@ -1350,6 +1442,8 @@ local openedTabLabel = elementContainer and elementContainer:FindFirstChild("Ope
 local tab1Btn = tabZone and tabZone:FindFirstChild("Tab1(selected)")
 local tab2Btn = tabZone and tabZone:FindFirstChild("Tab2(Mouse Targeted)")
 local tab3Btn = tabZone and tabZone:FindFirstChild("Tab3")
+local tab4Btn = tabZone and tabZone:FindFirstChild("Tab4")
+local tab5Btn = tabZone and tabZone:FindFirstChild("Tab5")
 
 local elementZone = elementContainer and elementContainer:FindFirstChild("ElementZone")
 local section1 = elementZone and elementZone:FindFirstChild("Section1")
@@ -1405,9 +1499,11 @@ local hotKey1 = hotKeysMain and hotKeysMain:FindFirstChild("HotKey1")
 local hotKey1KeyLabel = hotKey1 and hotKey1:FindFirstChild("Key")
 
 -- // Табы
+local tabNames = {"Combat", "Visual", "Misc", "World", "Settings"}
+
 local function setTab(index)
     if openedTabLabel then
-        openedTabLabel.Text = "Tab " .. tostring(index)
+        openedTabLabel.Text = tabNames[index] or "Tab " .. tostring(index)
     end
 
     local function setVisual(btn, active)
@@ -1428,6 +1524,8 @@ local function setTab(index)
     setVisual(tab1Btn, index == 1)
     setVisual(tab2Btn, index == 2)
     setVisual(tab3Btn, index == 3)
+    setVisual(tab4Btn, index == 4)
+    setVisual(tab5Btn, index == 5)
 end
 
 setTab(1)
@@ -1440,6 +1538,12 @@ if tab2Btn then
 end
 if tab3Btn then
     tab3Btn.MouseButton1Click:Connect(function() setTab(3) end)
+end
+if tab4Btn then
+    tab4Btn.MouseButton1Click:Connect(function() setTab(4) end)
+end
+if tab5Btn then
+    tab5Btn.MouseButton1Click:Connect(function() setTab(5) end)
 end
 
 -- // Тогглы
