@@ -756,16 +756,32 @@ end
 
 -- Функция для получения следующей позиции элемента в секции
 local function getNextElementPosition(section)
-    local maxY = 0
+    local elementCount = 0
+    local sectionHeight = section.Size.Y.Offset or 100 -- Высота секции в пикселях (по умолчанию 100)
+    
+    -- Считаем количество элементов Zone в секции
     for _, child in ipairs(section:GetChildren()) do
-        if child:IsA("Frame") and (child.Name:match("Zone") or child.Name:match("Section")) then
-            local y = child.Position.Y.Scale + child.Size.Y.Scale
-            if y > maxY then
-                maxY = y
-            end
+        if child:IsA("Frame") and child.Name:match("Zone") then
+            elementCount = elementCount + 1
         end
     end
-    return maxY
+    
+    -- Высота одного элемента в пикселях (большинство элементов имеют высоту 30px)
+    local elementHeight = 30
+    -- Высота Input элемента (40px)
+    -- Высота Dropdown элемента (35px)
+    -- Но для простоты используем среднюю высоту 30px
+    
+    -- Рассчитываем позицию: начальный отступ + (количество элементов * высота элемента) / высота секции
+    local startOffset = 0.01 -- Небольшой отступ от верха
+    local spacing = 0.01 -- Отступ между элементами
+    
+    if elementCount == 0 then
+        return startOffset
+    else
+        -- Позиция = начальный отступ + (количество элементов * (высота элемента + отступ)) / высота секции
+        return startOffset + (elementCount * (elementHeight / sectionHeight + spacing))
+    end
 end
 
 -- Объект Library с методами для создания элементов
@@ -1012,10 +1028,6 @@ function Library:CreateToggle(section, name, callback, defaultState)
         }
         TweenService:Create(mover, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), goal):Play()
     end
-    
-    -- Создаем уникальное имя флага на основе имени тоггла
-    local flagName = name:gsub("%s+", "") -- Убираем пробелы
-    Library.Flags[flagName] = defaultState
     
     toggleFrame.MouseButton1Click:Connect(function()
         enabled = not enabled
