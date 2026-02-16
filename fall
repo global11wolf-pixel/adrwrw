@@ -763,23 +763,26 @@ local function getNextElementPosition(section)
     for _, child in ipairs(section:GetChildren()) do
         if child:IsA("Frame") and child.Name:match("Zone") then
             local childY = child.Position.Y.Scale
-            local childHeight = child.Size.Y.Scale
-            local endY = childY + childHeight
+            -- Используем реальную высоту элемента в пикселях
+            local childHeightPx = child.Size.Y.Offset
+            if childHeightPx == 0 then
+                -- Если Offset = 0, используем Scale
+                childHeightPx = child.Size.Y.Scale * sectionHeight
+            end
+            local childHeightScale = childHeightPx / sectionHeight
+            local endY = childY + childHeightScale
             if endY > maxY then
                 maxY = endY
             end
         end
     end
     
-    -- Высота одного элемента в Scale (30px / 100px = 0.3)
-    local elementHeightScale = 30 / sectionHeight
-    
     -- Если элементов нет, начинаем с небольшого отступа от верха
     if maxY == 0 then
         return 0.01
     else
-        -- Добавляем высоту элемента + небольшой отступ
-        return maxY + elementHeightScale + 0.01
+        -- Добавляем небольшой отступ между элементами
+        return maxY + 0.01
     end
 end
 
@@ -1499,13 +1502,14 @@ function Library:CreateDropdown(section, name, options, default, callback)
     line.AnchorPoint = Vector2.new(0, 0)
     line.Parent = dropdownZone
     
-    local dropdownButton = Instance.new("Frame")
+    local dropdownButton = Instance.new("TextButton")
     dropdownButton.Name = "DropdownButton"
     dropdownButton.Size = UDim2.new(0, 111, 0, 24)
     dropdownButton.Position = UDim2.new(0.4226510226726532, 0, 0.13420933485031128, 0)
     dropdownButton.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
     dropdownButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
     dropdownButton.BorderSizePixel = 0
+    dropdownButton.Text = ""
     dropdownButton.AnchorPoint = Vector2.new(0, 0)
     dropdownButton.ClipsDescendants = true
     
