@@ -584,38 +584,6 @@ for i = 1, 5 do
 end
 
 local TweenService = game:GetService("TweenService")
-
-local function setupToggle
-                            ToggleName.Name = "ToggleName"
-                            ToggleName.Size = UDim2.new(0, 79, 0, 30)
-                            ToggleName.Position = UDim2.new(0.07027027010917664, 0, 0, 0)
-                            ToggleName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                            ToggleName.BackgroundTransparency = 1
-                            ToggleName.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                            ToggleName.BorderSizePixel = 0
-                            ToggleName.Text = "Toggle 1"
-                            ToggleName.TextColor3 = Color3.fromRGB(161, 161, 161)
-                            ToggleName.TextSize = 12
-                            ToggleName.Font = Enum.Font.SourceSansBold
-                            ToggleName.AnchorPoint = Vector2.new(0, 0)
-                            ToggleName.Parent = Toggle_1Zone
-
-                            local Line_3 = Instance.new("Frame")
-                            Line_3.Name = "Line"
-                            Line_3.Size = UDim2.new(0, 190, 0, 1)
-                            Line_3.Position = UDim2.new(0.054054055362939835, 0, 0.9937683343887329, 0)
-                            Line_3.BackgroundColor3 = Color3.fromRGB(161, 161, 161)
-                            Line_3.BackgroundTransparency = 0.949999988079071
-                            Line_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                            Line_3.BorderSizePixel = 0
-                            Line_3.AnchorPoint = Vector2.new(0, 0)
-                            Line_3.Parent = Toggle_1Zone
-
-                            local Toggle = Instance.new("TextButton")
-                            Toggle.Name = "Toggle"
-                            Toggle.Size = UDim2.new(0, 30, 0, 16)
-                            Toggle.Position = UDim2.new(0.7610037922859192, 0, 0.23333333432674408, 0)
-                            Toggle.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
                             Toggle.BorderColor3 = Color3.fromRGB(0, 0, 0)
                             Toggle.BorderSizePixel = 0
                             Toggle.Text = ""
@@ -1226,24 +1194,6 @@ local function setupToggle
                                 Blur.Position = UDim2.new(0.6418313980102539, 0, 0.2083333283662796, 0)
                                 Blur.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
                                 Blur.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                                Blur.BorderSizePixel = 0
-                                Blur.AnchorPoint = Vector2.new(0, 0)
-
-                                    local UIGradient_2 = Instance.new("UIGradient")
-                                    UIGradient_2.Parent = Blur
-                                Blur.Parent = DropdownButton
-
-                                local Arrow = Instance.new("ImageButton")
-                                Arrow.Name = "Arrow"
-                                Arrow.Size = UDim2.new(0, 10, 0, 10)
-                                Arrow.Position = UDim2.new(0.8670566082000732, 0, 0.265472412109375, 0)
-                                Arrow.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-                                Arrow.BackgroundTransparency = 1
-                                Arrow.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                                Arrow.BorderSizePixel = 0
-                                Arrow.Image = "rbxassetid://13116390649"
-                                Arrow.ImageColor3 = Color3.fromRGB(255, 255, 255)
-                                Arrow.AnchorPoint = Vector2.new(0, 0)
 local function setupToggle(toggleFrame, mover)
     if not (toggleFrame and mover) then return end
     local enabled = false
