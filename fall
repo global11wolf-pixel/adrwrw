@@ -762,9 +762,11 @@ local function updateSectionSize(section)
     -- Находим максимальную Y позицию всех существующих элементов
     for _, child in ipairs(section:GetChildren()) do
         if child:IsA("Frame") and child.Name:match("Zone") then
+            -- Используем только Offset для позиции и размера
             local childY = child.Position.Y.Offset
             local childHeight = child.Size.Y.Offset
             local endY = childY + childHeight
+            
             if endY > maxY then
                 maxY = endY
             end
@@ -783,9 +785,11 @@ local function getNextElementPosition(section)
     -- Находим максимальную Y позицию всех существующих элементов
     for _, child in ipairs(section:GetChildren()) do
         if child:IsA("Frame") and child.Name:match("Zone") then
+            -- Используем только Offset для позиции и размера
             local childY = child.Position.Y.Offset
             local childHeight = child.Size.Y.Offset
             local endY = childY + childHeight
+            
             if endY > maxY then
                 maxY = endY
             end
@@ -961,12 +965,18 @@ function Library:CreateToggle(section, name, callback, defaultState)
     local toggleZone = Instance.new("Frame")
     toggleZone.Name = "ToggleZone"
     toggleZone.Size = UDim2.new(1, 0, 0, 30)
-    toggleZone.Position = UDim2.new(0, 0, yOffset, 0)
+    toggleZone.Position = UDim2.new(0, 0, 0, yOffset)
     toggleZone.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     toggleZone.BackgroundTransparency = 0.7
     toggleZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
     toggleZone.BorderSizePixel = 0
     toggleZone.AnchorPoint = Vector2.new(0, 0)
+    
+    local toggleZoneStroke = Instance.new("UIStroke")
+    toggleZoneStroke.Color = Color3.fromRGB(50, 50, 50)
+    toggleZoneStroke.Thickness = 1
+    toggleZoneStroke.Transparency = 0.5
+    toggleZoneStroke.Parent = toggleZone
     
     local toggleName = Instance.new("TextLabel")
     toggleName.Name = "ToggleName"
@@ -1067,12 +1077,18 @@ function Library:CreateButton(section, name, callback)
     local buttonZone = Instance.new("Frame")
     buttonZone.Name = "ButtonZone"
     buttonZone.Size = UDim2.new(1, 0, 0, 30)
-    buttonZone.Position = UDim2.new(0, 0, yOffset, 0)
+    buttonZone.Position = UDim2.new(0, 0, 0, yOffset)
     buttonZone.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     buttonZone.BackgroundTransparency = 0.7
     buttonZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
     buttonZone.BorderSizePixel = 0
     buttonZone.AnchorPoint = Vector2.new(0, 0)
+    
+    local buttonZoneStroke = Instance.new("UIStroke")
+    buttonZoneStroke.Color = Color3.fromRGB(50, 50, 50)
+    buttonZoneStroke.Thickness = 1
+    buttonZoneStroke.Transparency = 0.5
+    buttonZoneStroke.Parent = buttonZone
     
     local buttonName = Instance.new("TextLabel")
     buttonName.Name = "ButtonName"
@@ -1141,12 +1157,18 @@ function Library:CreateSlider(section, name, min, max, default, callback)
     local sliderZone = Instance.new("Frame")
     sliderZone.Name = "SliderZone"
     sliderZone.Size = UDim2.new(1, 0, 0, 30)
-    sliderZone.Position = UDim2.new(0, 0, yOffset, 0)
+    sliderZone.Position = UDim2.new(0, 0, 0, yOffset)
     sliderZone.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     sliderZone.BackgroundTransparency = 0.7
     sliderZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
     sliderZone.BorderSizePixel = 0
     sliderZone.AnchorPoint = Vector2.new(0, 0)
+    
+    local sliderZoneStroke = Instance.new("UIStroke")
+    sliderZoneStroke.Color = Color3.fromRGB(50, 50, 50)
+    sliderZoneStroke.Thickness = 1
+    sliderZoneStroke.Transparency = 0.5
+    sliderZoneStroke.Parent = sliderZone
     
     local sliderName = Instance.new("TextLabel")
     sliderName.Name = "SliderName"
@@ -1301,12 +1323,18 @@ function Library:CreateBind(section, name, defaultKey, callback)
     local bindZone = Instance.new("Frame")
     bindZone.Name = "BindZone"
     bindZone.Size = UDim2.new(1, 0, 0, 30)
-    bindZone.Position = UDim2.new(0, 0, yOffset, 0)
+    bindZone.Position = UDim2.new(0, 0, 0, yOffset)
     bindZone.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     bindZone.BackgroundTransparency = 0.7
     bindZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
     bindZone.BorderSizePixel = 0
     bindZone.AnchorPoint = Vector2.new(0, 0)
+    
+    local bindZoneStroke = Instance.new("UIStroke")
+    bindZoneStroke.Color = Color3.fromRGB(50, 50, 50)
+    bindZoneStroke.Thickness = 1
+    bindZoneStroke.Transparency = 0.5
+    bindZoneStroke.Parent = bindZone
     
     local bindName = Instance.new("TextLabel")
     bindName.Name = "BindName"
@@ -1415,12 +1443,18 @@ function Library:CreateInput(section, name, placeholder, callback)
     local inputZone = Instance.new("Frame")
     inputZone.Name = "InputZone"
     inputZone.Size = UDim2.new(1, 0, 0, 40)
-    inputZone.Position = UDim2.new(0, 0, yOffset, 0)
+    inputZone.Position = UDim2.new(0, 0, 0, yOffset)
     inputZone.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     inputZone.BackgroundTransparency = 0.7
     inputZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
     inputZone.BorderSizePixel = 0
     inputZone.AnchorPoint = Vector2.new(0, 0)
+    
+    local inputZoneStroke = Instance.new("UIStroke")
+    inputZoneStroke.Color = Color3.fromRGB(50, 50, 50)
+    inputZoneStroke.Thickness = 1
+    inputZoneStroke.Transparency = 0.5
+    inputZoneStroke.Parent = inputZone
     
     local input = Instance.new("Frame")
     input.Name = "Input"
@@ -1509,12 +1543,18 @@ function Library:CreateDropdown(section, name, options, default, callback)
     local dropdownZone = Instance.new("Frame")
     dropdownZone.Name = "DropdownZone"
     dropdownZone.Size = UDim2.new(1, 0, 0, 35)
-    dropdownZone.Position = UDim2.new(0, 0, yOffset, 0)
+    dropdownZone.Position = UDim2.new(0, 0, 0, yOffset)
     dropdownZone.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     dropdownZone.BackgroundTransparency = 0.7
     dropdownZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
     dropdownZone.BorderSizePixel = 0
     dropdownZone.AnchorPoint = Vector2.new(0, 0)
+    
+    local dropdownZoneStroke = Instance.new("UIStroke")
+    dropdownZoneStroke.Color = Color3.fromRGB(50, 50, 50)
+    dropdownZoneStroke.Thickness = 1
+    dropdownZoneStroke.Transparency = 0.5
+    dropdownZoneStroke.Parent = dropdownZone
     
     local line = Instance.new("Frame")
     line.Name = "Line"
