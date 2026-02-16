@@ -535,27 +535,57 @@ UIData.elementContainer = main:FindFirstChild("ElementContainer")
 UIData.openedTabLabel = UIData.elementContainer and UIData.elementContainer:FindFirstChild("OpenedTab")
 UIData.elementZone = UIData.elementContainer and UIData.elementContainer:FindFirstChild("ElementZone")
 
-            local Line_10 = Instance.new("Frame")
-            Line_10.Name = "Line"
-            Line_10.Size = UDim2.new(0, 450, 0, 1)
-            Line_10.Position = UDim2.new(0.22945205867290497, 0, 0.11075744777917862, 0)
-            Line_10.BackgroundColor3 = Color3.fromRGB(161, 161, 161)
-            Line_10.BackgroundTransparency = 0.699999988079071
-            Line_10.BorderColor3 = Color3.fromRGB(0, 0, 0)
-            Line_10.BorderSizePixel = 0
-            Line_10.AnchorPoint = Vector2.new(0, 0)
-            Line_10.Parent = MainFrame_2
-            ElementContainer.Parent = MainFrame_2
-        MainFrame_2.Parent = UI
-    UI.Parent = ScreenGui
+UIData.tabs = {}
+UIData.sections = {}
+UIData.elements = {}
 
-ScreenGui.Parent = Player:WaitForChild("PlayerGui")
+local notifiGui = ScreenGui:FindFirstChild("Notifi")
+UIData.notifiList = notifiGui and notifiGui:FindFirstChild("NotifiList")
+UIData.notificationTemplate = UIData.notifiList and UIData.notifiList:FindFirstChild("Notification1")
+
+local hotKeysGui = ScreenGui:FindFirstChild("HotKeys")
+local hotKeysMain = hotKeysGui and hotKeysGui:FindFirstChild("MainFrame")
+local hotKey1 = hotKeysMain and hotKeysMain:FindFirstChild("HotKey1")
+UIData.hotKey1KeyLabel = hotKey1 and hotKey1:FindFirstChild("Key")
+
+local tabNames = {"Combat", "Visual", "Misc", "World", "Settings"}
+
+local function setTab(index)
+    if UIData.openedTabLabel then
+        UIData.openedTabLabel.Text = tabNames[index] or "Tab " .. tostring(index)
+    end
+
+    local function setVisual(btn, active)
+        if not btn then return end
+        local logo = btn:FindFirstChild("TabLogo")
+        local name = btn:FindFirstChild("TabName")
+        if active then
+            btn.BackgroundTransparency = 0.9
+            if logo then logo.ImageColor3 = Color3.fromRGB(150, 17, 255) end
+            if name then name.TextColor3 = Color3.fromRGB(150, 17, 255) end
+        else
+            btn.BackgroundTransparency = 1
+            if logo then logo.ImageColor3 = Color3.fromRGB(161, 161, 161) end
+            if name then name.TextColor3 = Color3.fromRGB(161, 161, 161) end
+        end
+    end
+
+    for i = 1, 5 do
+        setVisual(UIData.tabs[i], index == i)
+    end
+end
+
+setTab(1)
+
+for i = 1, 5 do
+    if UIData.tabs[i] then
+        UIData.tabs[i].MouseButton1Click:Connect(function() setTab(i) end)
+    end
+end
 
 local TweenService = game:GetService("TweenService")
-                        Toggle_1Zone.BorderSizePixel = 0
-                        Toggle_1Zone.AnchorPoint = Vector2.new(0, 0)
 
-                            local ToggleName = Instance.new("TextLabel")
+local function setupToggle
                             ToggleName.Name = "ToggleName"
                             ToggleName.Size = UDim2.new(0, 79, 0, 30)
                             ToggleName.Position = UDim2.new(0.07027027010917664, 0, 0, 0)
@@ -1214,149 +1244,6 @@ local TweenService = game:GetService("TweenService")
                                 Arrow.Image = "rbxassetid://13116390649"
                                 Arrow.ImageColor3 = Color3.fromRGB(255, 255, 255)
                                 Arrow.AnchorPoint = Vector2.new(0, 0)
-                                Arrow.Parent = DropdownButton
-                            DropdownButton.Parent = DropdownZone
-
-                            local DropdownName = Instance.new("TextLabel")
-                            DropdownName.Name = "DropdownName"
-                            DropdownName.Size = UDim2.new(0, 76, 0, 34)
-                            DropdownName.Position = UDim2.new(0.05405404046177864, 0, 0.01142229326069355, 0)
-                            DropdownName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                            DropdownName.BackgroundTransparency = 1
-                            DropdownName.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                            DropdownName.BorderSizePixel = 0
-                            DropdownName.Text = "Dropdown"
-                            DropdownName.TextColor3 = Color3.fromRGB(255, 255, 255)
-                            DropdownName.TextSize = 12
-                            DropdownName.Font = Enum.Font.SourceSansBold
-                            DropdownName.AnchorPoint = Vector2.new(0, 0)
-                            DropdownName.Parent = DropdownZone
-            ElementContainer.Parent = MainFrame_2
-        MainFrame_2.Parent = UI
-    UI.Parent = ScreenGui
-
-ScreenGui.Parent = Player:WaitForChild("PlayerGui")
-
-local TweenService = game:GetService("TweenService")
-local UserInputService = game:GetService("UserInputService")
-
-local main = MainFrame_2
-local UIData = {}
-UIData.main = main
-UIData.tabZone = main:FindFirstChild("TabZone")
-UIData.elementContainer = main:FindFirstChild("ElementContainer")
-UIData.openedTabLabel = UIData.elementContainer and UIData.elementContainer:FindFirstChild("OpenedTab")
-UIData.elementZone = UIData.elementContainer and UIData.elementContainer:FindFirstChild("ElementZone")
-
-UIData.tabs = {}
-if UIData.tabZone then
-    UIData.tabs[1] = UIData.tabZone:FindFirstChild("Tab1(selected)")
-    UIData.tabs[2] = UIData.tabZone:FindFirstChild("Tab2(Mouse Targeted)")
-    UIData.tabs[3] = UIData.tabZone:FindFirstChild("Tab3")
-    UIData.tabs[4] = UIData.tabZone:FindFirstChild("Tab4")
-    UIData.tabs[5] = UIData.tabZone:FindFirstChild("Tab5")
-end
-
-UIData.sections = {}
-if UIData.elementZone then
-    UIData.sections[1] = UIData.elementZone:FindFirstChild("Section1")
-    UIData.sections[2] = UIData.elementZone:FindFirstChild("Section2")
-    UIData.sections[3] = UIData.elementZone:FindFirstChild("Section3")
-end
-
-UIData.elements = {}
-if UIData.sections[1] then
-    local s1 = UIData.sections[1]
-    local t1z = s1:FindFirstChild("Toggle 1Zone")
-    UIData.elements.toggle1 = t1z and t1z:FindFirstChild("Toggle")
-    UIData.elements.toggle1Mover = UIData.elements.toggle1 and UIData.elements.toggle1:FindFirstChild("ToggleMover")
-    
-    local t2z = s1:FindFirstChild("Toggle 2Zone(enabled)")
-    UIData.elements.toggle2 = t2z and t2z:FindFirstChild("Toggle")
-    UIData.elements.toggle2Mover = UIData.elements.toggle2 and UIData.elements.toggle2:FindFirstChild("ToggleMover")
-    
-    local bz = s1:FindFirstChild("ButtonZone")
-    UIData.elements.button1 = bz and bz:FindFirstChild("TextButton")
-    if bz then
-        for _, child in ipairs(bz:GetChildren()) do
-            if child:IsA("TextButton") and child ~= UIData.elements.button1 then
-                UIData.elements.button2 = child
-            break
-            end
-        end
-    end
-end
-
-if UIData.sections[2] then
-    local s2 = UIData.sections[2]
-    local sz = s2:FindFirstChild("SliderZone")
-    local sl = sz and sz:FindFirstChild("SliderLine")
-    UIData.elements.sliderLine = sl
-    UIData.elements.sliderKnob = sl and sl:FindFirstChild("Frame")
-    local svf = sz and sz:FindFirstChild("SliderValue")
-    UIData.elements.sliderValueLabel = svf and svf:FindFirstChildOfClass("TextLabel")
-    
-    local bz = s2:FindFirstChild("BindZone")
-    UIData.elements.bindFrame = bz and bz:FindFirstChild("Bind")
-    UIData.elements.bindKeyLabel = UIData.elements.bindFrame and UIData.elements.bindFrame:FindFirstChild("BindName")
-    
-    local iz = s2:FindFirstChild("InputZone")
-    UIData.elements.inputFrame = iz and iz:FindFirstChild("Input")
-    UIData.elements.inputValueLabel = UIData.elements.inputFrame and UIData.elements.inputFrame:FindFirstChild("InputValue")
-end
-
-if UIData.sections[3] then
-    local s3 = UIData.sections[3]
-    local dz = s3:FindFirstChild("DropdownZone")
-    UIData.elements.dropdownButton = dz and dz:FindFirstChild("DropdownButton")
-    UIData.elements.dropdownSelected = UIData.elements.dropdownButton and UIData.elements.dropdownButton:FindFirstChild("Selected")
-    UIData.elements.dropdownArrow = UIData.elements.dropdownButton and UIData.elements.dropdownButton:FindFirstChild("Arrow")
-end
-
-local notifiGui = ScreenGui:FindFirstChild("Notifi")
-UIData.notifiList = notifiGui and notifiGui:FindFirstChild("NotifiList")
-UIData.notificationTemplate = UIData.notifiList and UIData.notifiList:FindFirstChild("Notification1")
-
-local hotKeysGui = ScreenGui:FindFirstChild("HotKeys")
-local hotKeysMain = hotKeysGui and hotKeysGui:FindFirstChild("MainFrame")
-local hotKey1 = hotKeysMain and hotKeysMain:FindFirstChild("HotKey1")
-UIData.hotKey1KeyLabel = hotKey1 and hotKey1:FindFirstChild("Key")
-
-local tabNames = {"Combat", "Visual", "Misc", "World", "Settings"}
-
-local function setTab(index)
-    if UIData.openedTabLabel then
-        UIData.openedTabLabel.Text = tabNames[index] or "Tab " .. tostring(index)
-    end
-
-    local function setVisual(btn, active)
-        if not btn then return end
-        local logo = btn:FindFirstChild("TabLogo")
-        local name = btn:FindFirstChild("TabName")
-        if active then
-            btn.BackgroundTransparency = 0.9
-            if logo then logo.ImageColor3 = Color3.fromRGB(150, 17, 255) end
-            if name then name.TextColor3 = Color3.fromRGB(150, 17, 255) end
-        else
-            btn.BackgroundTransparency = 1
-            if logo then logo.ImageColor3 = Color3.fromRGB(161, 161, 161) end
-            if name then name.TextColor3 = Color3.fromRGB(161, 161, 161) end
-        end
-    end
-
-    for i = 1, 5 do
-        setVisual(UIData.tabs[i], index == i)
-    end
-end
-
-setTab(1)
-
-for i = 1, 5 do
-    if UIData.tabs[i] then
-        UIData.tabs[i].MouseButton1Click:Connect(function() setTab(i) end)
-end
-end
-
 local function setupToggle(toggleFrame, mover)
     if not (toggleFrame and mover) then return end
     local enabled = false
