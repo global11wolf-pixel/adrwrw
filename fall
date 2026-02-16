@@ -349,254 +349,11 @@ local ScreenGui = Instance.new("ScreenGui")
             TabZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
             TabZone.BorderSizePixel = 0
             TabZone.AnchorPoint = Vector2.new(0, 0)
-
-                local TabSectionName1 = Instance.new("TextLabel")
-                TabSectionName1.Name = "TabSectionName1"
-                TabSectionName1.Size = UDim2.new(0, 125, 0, 21)
-                TabSectionName1.Position = UDim2.new(0.06428571790456772, 0, -0.019332557916641235, 0)
-                TabSectionName1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                TabSectionName1.BackgroundTransparency = 1
-                TabSectionName1.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                TabSectionName1.BorderSizePixel = 0
-                TabSectionName1.Text = "Section 1"
-                TabSectionName1.TextColor3 = Color3.fromRGB(161, 161, 161)
-                TabSectionName1.TextSize = 12
-                TabSectionName1.Font = Enum.Font.SourceSansBold
-                TabSectionName1.AnchorPoint = Vector2.new(0, 0)
-                TabSectionName1.Parent = TabZone
-
-                local Tab1_selected_ = Instance.new("TextButton")
-                Tab1_selected_.Name = "Tab1(selected)"
-                Tab1_selected_.Size = UDim2.new(0, 120, 0, 25)
-                Tab1_selected_.Position = UDim2.new(0.06428571790456772, 0, 0.0535714291036129, 0)
-                Tab1_selected_.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                Tab1_selected_.BackgroundTransparency = 0.8999999761581421
-                Tab1_selected_.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                Tab1_selected_.BorderSizePixel = 0
-                Tab1_selected_.Text = ""
-                Tab1_selected_.TextColor3 = Color3.fromRGB(0, 0, 0)
-                Tab1_selected_.TextSize = 14
-                Tab1_selected_.Font = Enum.Font.SourceSans
-                Tab1_selected_.AnchorPoint = Vector2.new(0, 0)
-
-                    local UICorner_8 = Instance.new("UICorner")
-                    UICorner_8.Parent = Tab1_selected_
-
-                    local TabLogo = Instance.new("ImageLabel")
-                    TabLogo.Name = "TabLogo"
-                    TabLogo.Size = UDim2.new(0, 14, 0, 14)
-                    TabLogo.Position = UDim2.new(0.06666667014360428, 0, 0.20000000298023224, 0)
-                    TabLogo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    TabLogo.BackgroundTransparency = 1
-                    TabLogo.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                    TabLogo.BorderSizePixel = 0
-                    TabLogo.Image = "rbxassetid://12614416478"
-                    TabLogo.ImageColor3 = Color3.fromRGB(150, 17, 255)
-                    TabLogo.AnchorPoint = Vector2.new(0, 0)
-                    TabLogo.Parent = Tab1_selected_
-
-                    local TabName = Instance.new("TextLabel")
-                    TabName.Name = "TabName"
-                    TabName.Size = UDim2.new(0, 89, 0, 23)
-                    TabName.Position = UDim2.new(0.25, 0, -0.03999878093600273, 0)
-                    TabName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    TabName.BackgroundTransparency = 1
-                    TabName.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                    TabName.BorderSizePixel = 0
-                    TabName.Text = "Combat"
-                    TabName.TextColor3 = Color3.fromRGB(150, 17, 255)
-                    TabName.TextSize = 14
-                    TabName.Font = Enum.Font.SourceSansBold
-                    TabName.AnchorPoint = Vector2.new(0, 0)
-                    TabName.Parent = Tab1_selected_
-                Tab1_selected_.Parent = TabZone
-
-                local Tab2_Mouse_Targeted_ = Instance.new("TextButton")
-                Tab2_Mouse_Targeted_.Name = "Tab2(Mouse Targeted)"
-                Tab2_Mouse_Targeted_.Size = UDim2.new(0, 120, 0, 25)
-                Tab2_Mouse_Targeted_.Position = UDim2.new(0.06428571790456772, 0, 0.1428571492433548, 0)
-                Tab2_Mouse_Targeted_.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                Tab2_Mouse_Targeted_.BackgroundTransparency = 0.949999988079071
-                Tab2_Mouse_Targeted_.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                Tab2_Mouse_Targeted_.BorderSizePixel = 0
-                Tab2_Mouse_Targeted_.Text = ""
-                Tab2_Mouse_Targeted_.TextColor3 = Color3.fromRGB(0, 0, 0)
-                Tab2_Mouse_Targeted_.TextSize = 14
-                Tab2_Mouse_Targeted_.Font = Enum.Font.SourceSans
-                Tab2_Mouse_Targeted_.AnchorPoint = Vector2.new(0, 0)
-
-                    local UICorner_9 = Instance.new("UICorner")
-                    UICorner_9.Parent = Tab2_Mouse_Targeted_
-
-                    local TabLogo_2 = Instance.new("ImageLabel")
-                    TabLogo_2.Name = "TabLogo"
-                    TabLogo_2.Size = UDim2.new(0, 14, 0, 14)
-                    TabLogo_2.Position = UDim2.new(0.06666667014360428, 0, 0.20000000298023224, 0)
-                    TabLogo_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    TabLogo_2.BackgroundTransparency = 1
-                    TabLogo_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                    TabLogo_2.BorderSizePixel = 0
-                    TabLogo_2.Image = "rbxassetid://12614416478"
-                    TabLogo_2.ImageColor3 = Color3.fromRGB(255, 255, 255)
-                    TabLogo_2.AnchorPoint = Vector2.new(0, 0)
-                    TabLogo_2.Parent = Tab2_Mouse_Targeted_
-
-                    local TabName_2 = Instance.new("TextLabel")
-                    TabName_2.Name = "TabName"
-                    TabName_2.Size = UDim2.new(0, 89, 0, 23)
-                    TabName_2.Position = UDim2.new(0.25, 0, -0.03999878093600273, 0)
-                    TabName_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    TabName_2.BackgroundTransparency = 1
-                    TabName_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                    TabName_2.BorderSizePixel = 0
-                    TabName_2.Text = "Visual"
-                    TabName_2.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    TabName_2.TextSize = 14
-                    TabName_2.Font = Enum.Font.SourceSansBold
-                    TabName_2.AnchorPoint = Vector2.new(0, 0)
-                    TabName_2.Parent = Tab2_Mouse_Targeted_
-                Tab2_Mouse_Targeted_.Parent = TabZone
-
-                local Tab3 = Instance.new("TextButton")
-                Tab3.Name = "Tab3"
-                Tab3.Size = UDim2.new(0, 120, 0, 25)
-                Tab3.Position = UDim2.new(0.06428571790456772, 0, 0.23214296996593475, 0)
-                Tab3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                Tab3.BackgroundTransparency = 1
-                Tab3.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                Tab3.BorderSizePixel = 0
-                Tab3.Text = ""
-                Tab3.TextColor3 = Color3.fromRGB(0, 0, 0)
-                Tab3.TextSize = 14
-                Tab3.Font = Enum.Font.SourceSans
-                Tab3.AnchorPoint = Vector2.new(0, 0)
-
-                    local UICorner_10 = Instance.new("UICorner")
-                    UICorner_10.Parent = Tab3
-
-                    local TabLogo_3 = Instance.new("ImageLabel")
-                    TabLogo_3.Name = "TabLogo"
-                    TabLogo_3.Size = UDim2.new(0, 14, 0, 14)
-                    TabLogo_3.Position = UDim2.new(0.06666667014360428, 0, 0.20000000298023224, 0)
-                    TabLogo_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    TabLogo_3.BackgroundTransparency = 1
-                    TabLogo_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                    TabLogo_3.BorderSizePixel = 0
-                    TabLogo_3.Image = "rbxassetid://12614416478"
-                    TabLogo_3.ImageColor3 = Color3.fromRGB(161, 161, 161)
-                    TabLogo_3.AnchorPoint = Vector2.new(0, 0)
-                    TabLogo_3.Parent = Tab3
-
-                    local TabName_3 = Instance.new("TextLabel")
-                    TabName_3.Name = "TabName"
-                    TabName_3.Size = UDim2.new(0, 89, 0, 23)
-                    TabName_3.Position = UDim2.new(0.25, 0, -0.03999878093600273, 0)
-                    TabName_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    TabName_3.BackgroundTransparency = 1
-                    TabName_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                    TabName_3.BorderSizePixel = 0
-                    TabName_3.Text = "Misc"
-                    TabName_3.TextColor3 = Color3.fromRGB(161, 161, 161)
-                    TabName_3.TextSize = 14
-                    TabName_3.Font = Enum.Font.SourceSansBold
-                    TabName_3.AnchorPoint = Vector2.new(0, 0)
-                    TabName_3.Parent = Tab3
-                Tab3.Parent = TabZone
-
-                local Tab4 = Instance.new("TextButton")
-                Tab4.Name = "Tab4"
-                Tab4.Size = UDim2.new(0, 120, 0, 25)
-                Tab4.Position = UDim2.new(0.06428571790456772, 0, 0.3214285671710968, 0)
-                Tab4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                Tab4.BackgroundTransparency = 1
-                Tab4.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                Tab4.BorderSizePixel = 0
-                Tab4.Text = ""
-                Tab4.TextColor3 = Color3.fromRGB(0, 0, 0)
-                Tab4.TextSize = 14
-                Tab4.Font = Enum.Font.SourceSans
-                Tab4.AnchorPoint = Vector2.new(0, 0)
-
-                    local UICorner_11 = Instance.new("UICorner")
-                    UICorner_11.Parent = Tab4
-
-                    local TabLogo_4 = Instance.new("ImageLabel")
-                    TabLogo_4.Name = "TabLogo"
-                    TabLogo_4.Size = UDim2.new(0, 14, 0, 14)
-                    TabLogo_4.Position = UDim2.new(0.06666667014360428, 0, 0.20000000298023224, 0)
-                    TabLogo_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    TabLogo_4.BackgroundTransparency = 1
-                    TabLogo_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                    TabLogo_4.BorderSizePixel = 0
-                    TabLogo_4.Image = "rbxassetid://12614416478"
-                    TabLogo_4.ImageColor3 = Color3.fromRGB(161, 161, 161)
-                    TabLogo_4.AnchorPoint = Vector2.new(0, 0)
-                    TabLogo_4.Parent = Tab4
-
-                    local TabName_4 = Instance.new("TextLabel")
-                    TabName_4.Name = "TabName"
-                    TabName_4.Size = UDim2.new(0, 89, 0, 23)
-                    TabName_4.Position = UDim2.new(0.25, 0, -0.03999878093600273, 0)
-                    TabName_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    TabName_4.BackgroundTransparency = 1
-                    TabName_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                    TabName_4.BorderSizePixel = 0
-                    TabName_4.Text = "World"
-                    TabName_4.TextColor3 = Color3.fromRGB(161, 161, 161)
-                    TabName_4.TextSize = 14
-                    TabName_4.Font = Enum.Font.SourceSansBold
-                    TabName_4.AnchorPoint = Vector2.new(0, 0)
-                    TabName_4.Parent = Tab4
-                Tab4.Parent = TabZone
-
-                local Tab5 = Instance.new("TextButton")
-                Tab5.Name = "Tab5"
-                Tab5.Size = UDim2.new(0, 120, 0, 25)
-                Tab5.Position = UDim2.new(0.06428571790456772, 0, 0.4107142984867096, 0)
-                Tab5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                Tab5.BackgroundTransparency = 1
-                Tab5.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                Tab5.BorderSizePixel = 0
-                Tab5.Text = ""
-                Tab5.TextColor3 = Color3.fromRGB(0, 0, 0)
-                Tab5.TextSize = 14
-                Tab5.Font = Enum.Font.SourceSans
-                Tab5.AnchorPoint = Vector2.new(0, 0)
-
-                    local UICorner_12 = Instance.new("UICorner")
-                    UICorner_12.Parent = Tab5
-
-                    local TabLogo_5 = Instance.new("ImageLabel")
-                    TabLogo_5.Name = "TabLogo"
-                    TabLogo_5.Size = UDim2.new(0, 14, 0, 14)
-                    TabLogo_5.Position = UDim2.new(0.06666667014360428, 0, 0.20000000298023224, 0)
-                    TabLogo_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    TabLogo_5.BackgroundTransparency = 1
-                    TabLogo_5.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                    TabLogo_5.BorderSizePixel = 0
-                    TabLogo_5.Image = "rbxassetid://12614416478"
-                    TabLogo_5.ImageColor3 = Color3.fromRGB(161, 161, 161)
-                    TabLogo_5.AnchorPoint = Vector2.new(0, 0)
-                    TabLogo_5.Parent = Tab5
-
-                    local TabName_5 = Instance.new("TextLabel")
-                    TabName_5.Name = "TabName"
-                    TabName_5.Size = UDim2.new(0, 89, 0, 23)
-                    TabName_5.Position = UDim2.new(0.25, 0, -0.03999878093600273, 0)
-                    TabName_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    TabName_5.BackgroundTransparency = 1
-                    TabName_5.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                    TabName_5.BorderSizePixel = 0
-                    TabName_5.Text = "Settings"
-                    TabName_5.TextColor3 = Color3.fromRGB(161, 161, 161)
-                    TabName_5.TextSize = 14
-                    TabName_5.Font = Enum.Font.SourceSansBold
-                    TabName_5.AnchorPoint = Vector2.new(0, 0)
-                    TabName_5.Parent = Tab5
-                Tab5.Parent = TabZone
             TabZone.Parent = MainFrame_2
 
             local ProfileZone = Instance.new("Frame")
+            ProfileZone.Name = "ProfileZone"
+            ProfileZone.Size = UDim2.new(0, 130, 0, 30)
             ProfileZone.Name = "ProfileZone"
             ProfileZone.Size = UDim2.new(0, 130, 0, 30)
             ProfileZone.Position = UDim2.new(0.00740763358771801, 0, 0.9032053351402283, 0)
@@ -702,45 +459,99 @@ local ScreenGui = Instance.new("ScreenGui")
                 ElementZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
                 ElementZone.BorderSizePixel = 0
                 ElementZone.AnchorPoint = Vector2.new(0, 0)
+                ElementZone.Parent = ElementContainer
 
-                    local Section1 = Instance.new("Frame")
-                    Section1.Name = "Section1"
-                    Section1.Size = UDim2.new(0, 210, 0, 100)
-                    Section1.Position = UDim2.new(0.5331807732582092, 0, 0.06666668504476547, 0)
-                    Section1.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
-                    Section1.BackgroundTransparency = 0.6000000238418579
-                    Section1.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                    Section1.BorderSizePixel = 0
-                    Section1.AnchorPoint = Vector2.new(0, 0)
+                local OpenedTab = Instance.new("TextLabel")
+                OpenedTab.Name = "OpenedTab"
+                OpenedTab.Size = UDim2.new(0, 79, 0, 30)
+                OpenedTab.Position = UDim2.new(0.021381428465247154, 0, 0.01666666753590107, 0)
+                OpenedTab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                OpenedTab.BackgroundTransparency = 1
+                OpenedTab.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                OpenedTab.BorderSizePixel = 0
+                OpenedTab.Text = "Combat"
+                OpenedTab.TextColor3 = Color3.fromRGB(255, 255, 255)
+                OpenedTab.TextSize = 16
+                OpenedTab.Font = Enum.Font.SourceSansBold
+                OpenedTab.AnchorPoint = Vector2.new(0, 0)
+                OpenedTab.Parent = ElementContainer
 
-                        local SectionName = Instance.new("TextLabel")
-                        SectionName.Name = "SectionName"
-                        SectionName.Size = UDim2.new(0, 78, 0, 19)
-                        SectionName.Position = UDim2.new(0.037837836891412735, 0, -0.1933334320783615, 0)
-                        SectionName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                        SectionName.BackgroundTransparency = 1
-                        SectionName.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                        SectionName.BorderSizePixel = 0
-                        SectionName.Text = "Section 1"
-                        SectionName.TextColor3 = Color3.fromRGB(161, 161, 161)
-                        SectionName.TextSize = 12
-                        SectionName.Font = Enum.Font.SourceSansBold
-                        SectionName.AnchorPoint = Vector2.new(0, 0)
-                        SectionName.Parent = Section1
+                local Settings = Instance.new("Frame")
+                Settings.Name = "Settings"
+                Settings.Size = UDim2.new(0, 35, 0, 35)
+                Settings.Position = UDim2.new(0.9140238165855408, 0, 0.008333333767950535, 0)
+                Settings.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Settings.BackgroundTransparency = 1
+                Settings.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                Settings.BorderSizePixel = 0
+                Settings.AnchorPoint = Vector2.new(0, 0)
 
-                        local UICorner_13 = Instance.new("UICorner")
-                        UICorner_13.Parent = Section1
+                    local Tab3_2 = Instance.new("TextButton")
+                    Tab3_2.Name = "Tab3"
+                    Tab3_2.Size = UDim2.new(0, 35, 0, 35)
+                    Tab3_2.Position = UDim2.new(0.1594555675983429, 0, 0.14464294910430908, 0)
+                    Tab3_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    Tab3_2.BackgroundTransparency = 1
+                    Tab3_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                    Tab3_2.BorderSizePixel = 0
+                    Tab3_2.Text = ""
+                    Tab3_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+                    Tab3_2.TextSize = 14
+                    Tab3_2.Font = Enum.Font.SourceSans
+                    Tab3_2.AnchorPoint = Vector2.new(0, 0)
 
-                        local UIStroke_3 = Instance.new("UIStroke")
-                        UIStroke_3.Parent = Section1
+                        local UICorner_29 = Instance.new("UICorner")
+                        UICorner_29.Parent = Tab3_2
+                    Tab3_2.Parent = Settings
 
-                        local Toggle_1Zone = Instance.new("Frame")
-                        Toggle_1Zone.Name = "Toggle 1Zone"
-                        Toggle_1Zone.Size = UDim2.new(0, 210, 0, 30)
-                        Toggle_1Zone.Position = UDim2.new(0, 0, 9.155273232863692e-07, 0)
-                        Toggle_1Zone.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                        Toggle_1Zone.BackgroundTransparency = 1
-                        Toggle_1Zone.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                    local UICorner_30 = Instance.new("UICorner")
+                    UICorner_30.Parent = Settings
+                Settings.Parent = ElementContainer
+            ElementContainer.Parent = MainFrame_2
+
+            local Line_10 = Instance.new("Frame")
+            Line_10.Name = "Line"
+            Line_10.Size = UDim2.new(0, 450, 0, 1)
+            Line_10.Position = UDim2.new(0.22945205867290497, 0, 0.11075744777917862, 0)
+            Line_10.BackgroundColor3 = Color3.fromRGB(161, 161, 161)
+            Line_10.BackgroundTransparency = 0.699999988079071
+            Line_10.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Line_10.BorderSizePixel = 0
+            Line_10.AnchorPoint = Vector2.new(0, 0)
+            Line_10.Parent = MainFrame_2
+        MainFrame_2.Parent = UI
+    UI.Parent = ScreenGui
+
+ScreenGui.Parent = Player:WaitForChild("PlayerGui")
+
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+
+local main = MainFrame_2
+local UIData = {}
+UIData.main = main
+UIData.tabZone = main:FindFirstChild("TabZone")
+UIData.elementContainer = main:FindFirstChild("ElementContainer")
+UIData.openedTabLabel = UIData.elementContainer and UIData.elementContainer:FindFirstChild("OpenedTab")
+UIData.elementZone = UIData.elementContainer and UIData.elementContainer:FindFirstChild("ElementZone")
+
+            local Line_10 = Instance.new("Frame")
+            Line_10.Name = "Line"
+            Line_10.Size = UDim2.new(0, 450, 0, 1)
+            Line_10.Position = UDim2.new(0.22945205867290497, 0, 0.11075744777917862, 0)
+            Line_10.BackgroundColor3 = Color3.fromRGB(161, 161, 161)
+            Line_10.BackgroundTransparency = 0.699999988079071
+            Line_10.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Line_10.BorderSizePixel = 0
+            Line_10.AnchorPoint = Vector2.new(0, 0)
+            Line_10.Parent = MainFrame_2
+            ElementContainer.Parent = MainFrame_2
+        MainFrame_2.Parent = UI
+    UI.Parent = ScreenGui
+
+ScreenGui.Parent = Player:WaitForChild("PlayerGui")
+
+local TweenService = game:GetService("TweenService")
                         Toggle_1Zone.BorderSizePixel = 0
                         Toggle_1Zone.AnchorPoint = Vector2.new(0, 0)
 
@@ -1420,68 +1231,7 @@ local ScreenGui = Instance.new("ScreenGui")
                             DropdownName.Font = Enum.Font.SourceSansBold
                             DropdownName.AnchorPoint = Vector2.new(0, 0)
                             DropdownName.Parent = DropdownZone
-                        DropdownZone.Parent = Section3
-                    Section3.Parent = ElementZone
-                ElementZone.Parent = ElementContainer
-
-                local OpenedTab = Instance.new("TextLabel")
-                OpenedTab.Name = "OpenedTab"
-                OpenedTab.Size = UDim2.new(0, 79, 0, 30)
-                OpenedTab.Position = UDim2.new(0.021381428465247154, 0, 0.01666666753590107, 0)
-                OpenedTab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                OpenedTab.BackgroundTransparency = 1
-                OpenedTab.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                OpenedTab.BorderSizePixel = 0
-                OpenedTab.Text = "Combat"
-                OpenedTab.TextColor3 = Color3.fromRGB(255, 255, 255)
-                OpenedTab.TextSize = 16
-                OpenedTab.Font = Enum.Font.SourceSansBold
-                OpenedTab.AnchorPoint = Vector2.new(0, 0)
-                OpenedTab.Parent = ElementContainer
-
-                local Settings = Instance.new("Frame")
-                Settings.Name = "Settings"
-                Settings.Size = UDim2.new(0, 35, 0, 35)
-                Settings.Position = UDim2.new(0.9140238165855408, 0, 0.008333333767950535, 0)
-                Settings.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                Settings.BackgroundTransparency = 1
-                Settings.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                Settings.BorderSizePixel = 0
-                Settings.AnchorPoint = Vector2.new(0, 0)
-
-                    local Tab3_2 = Instance.new("TextButton")
-                    Tab3_2.Name = "Tab3"
-                    Tab3_2.Size = UDim2.new(0, 35, 0, 35)
-                    Tab3_2.Position = UDim2.new(0.1594555675983429, 0, 0.14464294910430908, 0)
-                    Tab3_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    Tab3_2.BackgroundTransparency = 1
-                    Tab3_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                    Tab3_2.BorderSizePixel = 0
-                    Tab3_2.Text = ""
-                    Tab3_2.TextColor3 = Color3.fromRGB(0, 0, 0)
-                    Tab3_2.TextSize = 14
-                    Tab3_2.Font = Enum.Font.SourceSans
-                    Tab3_2.AnchorPoint = Vector2.new(0, 0)
-
-                        local UICorner_29 = Instance.new("UICorner")
-                        UICorner_29.Parent = Tab3_2
-                    Tab3_2.Parent = Settings
-
-                    local UICorner_30 = Instance.new("UICorner")
-                    UICorner_30.Parent = Settings
-                Settings.Parent = ElementContainer
             ElementContainer.Parent = MainFrame_2
-
-            local Line_10 = Instance.new("Frame")
-            Line_10.Name = "Line"
-            Line_10.Size = UDim2.new(0, 450, 0, 1)
-            Line_10.Position = UDim2.new(0.22945205867290497, 0, 0.11075744777917862, 0)
-            Line_10.BackgroundColor3 = Color3.fromRGB(161, 161, 161)
-            Line_10.BackgroundTransparency = 0.699999988079071
-            Line_10.BorderColor3 = Color3.fromRGB(0, 0, 0)
-            Line_10.BorderSizePixel = 0
-            Line_10.AnchorPoint = Vector2.new(0, 0)
-            Line_10.Parent = MainFrame_2
         MainFrame_2.Parent = UI
     UI.Parent = ScreenGui
 
@@ -1981,15 +1731,32 @@ function Library:CreateSection(tabIndex, sectionName, position)
     return section
 end
 
+local function getNextElementPosition(section)
+    local maxY = 0
+    for _, child in ipairs(section:GetChildren()) do
+        if child:IsA("Frame") and child.Name:match("Zone") then
+            local yPos = child.Position.Y.Offset
+            local height = child.Size.Y.Offset
+            local totalY = yPos + height
+            if totalY > maxY then
+                maxY = totalY
+            end
+        end
+    end
+    return maxY
+end
+
 function Library:CreateToggle(section, name, callback, defaultState)
     if not section then return nil end
     
     defaultState = defaultState or false
     
+    local yOffset = getNextElementPosition(section)
+    
     local toggleZone = Instance.new("Frame")
     toggleZone.Name = name .. "Zone"
     toggleZone.Size = UDim2.new(0, 210, 0, 30)
-    toggleZone.Position = UDim2.new(0, 0, 0, 0)
+    toggleZone.Position = UDim2.new(0, 0, 0, yOffset)
     toggleZone.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     toggleZone.BackgroundTransparency = 1
     toggleZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -2070,10 +1837,12 @@ end
 function Library:CreateButton(section, name, callback)
     if not section then return nil end
     
+    local yOffset = getNextElementPosition(section)
+    
     local buttonZone = Instance.new("Frame")
     buttonZone.Name = name .. "Zone"
     buttonZone.Size = UDim2.new(0, 210, 0, 35)
-    buttonZone.Position = UDim2.new(0, 0, 0, 0)
+    buttonZone.Position = UDim2.new(0, 0, 0, yOffset)
     buttonZone.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     buttonZone.BackgroundTransparency = 1
     buttonZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -2123,10 +1892,12 @@ function Library:CreateSlider(section, name, min, max, default, callback)
     max = max or 100
     default = default or min
     
+    local yOffset = getNextElementPosition(section)
+    
     local sliderZone = Instance.new("Frame")
     sliderZone.Name = name .. "Zone"
     sliderZone.Size = UDim2.new(0, 210, 0, 30)
-    sliderZone.Position = UDim2.new(0, 0, 0, 0)
+    sliderZone.Position = UDim2.new(0, 0, 0, yOffset)
     sliderZone.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     sliderZone.BackgroundTransparency = 1
     sliderZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -2254,10 +2025,12 @@ end
 function Library:CreateBind(section, name, defaultKey, callback)
     if not section then return nil end
     
+    local yOffset = getNextElementPosition(section)
+    
     local bindZone = Instance.new("Frame")
     bindZone.Name = name .. "Zone"
     bindZone.Size = UDim2.new(0, 210, 0, 30)
-    bindZone.Position = UDim2.new(0, 0, 0, 0)
+    bindZone.Position = UDim2.new(0, 0, 0, yOffset)
     bindZone.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     bindZone.BackgroundTransparency = 1
     bindZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -2348,10 +2121,12 @@ end
 function Library:CreateInput(section, name, placeholder, callback)
     if not section then return nil end
     
+    local yOffset = getNextElementPosition(section)
+    
     local inputZone = Instance.new("Frame")
     inputZone.Name = name .. "Zone"
     inputZone.Size = UDim2.new(0, 210, 0, 40)
-    inputZone.Position = UDim2.new(0, 0, 0, 0)
+    inputZone.Position = UDim2.new(0, 0, 0, yOffset)
     inputZone.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     inputZone.BackgroundTransparency = 1
     inputZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -2455,10 +2230,12 @@ function Library:CreateDropdown(section, name, options, default, callback)
     options = options or {}
     default = default or (options[1] or "")
     
+    local yOffset = getNextElementPosition(section)
+    
     local dropdownZone = Instance.new("Frame")
     dropdownZone.Name = name .. "Zone"
     dropdownZone.Size = UDim2.new(0, 210, 0, 35)
-    dropdownZone.Position = UDim2.new(0, 0, 0, 0)
+    dropdownZone.Position = UDim2.new(0, 0, 0, yOffset)
     dropdownZone.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     dropdownZone.BackgroundTransparency = 1
     dropdownZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
