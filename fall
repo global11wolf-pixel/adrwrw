@@ -584,100 +584,179 @@ for i = 1, 5 do
 end
 
 local TweenService = game:GetService("TweenService")
-                            Toggle.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                            Toggle.BorderSizePixel = 0
-                            Toggle.Text = ""
-                            Toggle.TextColor3 = Color3.fromRGB(0, 0, 0)
-                            Toggle.TextSize = 14
-                            Toggle.Font = Enum.Font.SourceSans
-                            Toggle.AnchorPoint = Vector2.new(0, 0)
 
-                                local UICorner_14 = Instance.new("UICorner")
-                                UICorner_14.Parent = Toggle
+local function setupToggle(toggleFrame, mover)
+    if not (toggleFrame and mover) then return end
+    local enabled = false
+    local offColor = Color3.fromRGB(29, 29, 29)
+    local onColor = Color3.fromRGB(150, 17, 255)
 
-                                local ToggleMover = Instance.new("TextButton")
-                                ToggleMover.Name = "ToggleMover"
-                                ToggleMover.Size = UDim2.new(0, 12, 0, 12)
-                                ToggleMover.Position = UDim2.new(0, 2, 0.125, 0)
-                                ToggleMover.BackgroundColor3 = Color3.fromRGB(115, 115, 115)
-                                ToggleMover.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                                ToggleMover.BorderSizePixel = 0
-                                ToggleMover.Text = ""
-                                ToggleMover.TextColor3 = Color3.fromRGB(0, 0, 0)
-                                ToggleMover.TextSize = 14
-                                ToggleMover.Font = Enum.Font.SourceSans
-                                ToggleMover.AnchorPoint = Vector2.new(0, 0)
+    local function apply()
+        toggleFrame.BackgroundColor3 = enabled and onColor or offColor
+        local goal = {
+            Position = enabled and UDim2.new(0.6, 0, 0.125, 0) or UDim2.new(0, 2, 0.125, 0),
+        }
+        TweenService:Create(mover, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), goal):Play()
+    end
 
-                                    local UICorner_15 = Instance.new("UICorner")
-                                    UICorner_15.Parent = ToggleMover
-                                ToggleMover.Parent = Toggle
-                            Toggle.Parent = Toggle_1Zone
+    apply()
 
-                            local Option = Instance.new("ImageButton")
-                            Option.Name = "Option"
-                            Option.Size = UDim2.new(0, 14, 0, 13)
-                            Option.Position = UDim2.new(0.9008039236068726, 0, 0.2917276918888092, 0)
-                            Option.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                            Option.BackgroundTransparency = 1
-                            Option.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                            Option.BorderSizePixel = 0
-                            Option.Image = "rbxassetid://136882854117051"
-                            Option.ImageColor3 = Color3.fromRGB(255, 255, 255)
-                            Option.Rotation = 90
-                            Option.AnchorPoint = Vector2.new(0, 0)
+    toggleFrame.MouseButton1Click:Connect(function()
+        enabled = not enabled
+        apply()
+        print(toggleFrame.Name .. " =", enabled)
+    end)
+end
 
-                                local Option_2 = Instance.new("Frame")
-                                Option_2.Name = "Option"
-                                Option_2.Size = UDim2.new(0, 23, 0, 68)
-                                Option_2.Position = UDim2.new(-0.2857142984867096, 0, -5.461538314819336, 0)
-                                Option_2.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-                                Option_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                                Option_2.BorderSizePixel = 0
-                                Option_2.AnchorPoint = Vector2.new(0, 0)
+setupToggle(UIData.elements.toggle1, UIData.elements.toggle1Mover)
+setupToggle(UIData.elements.toggle2, UIData.elements.toggle2Mover)
 
-                                    local UICorner_16 = Instance.new("UICorner")
-                                    UICorner_16.Parent = Option_2
+if UIData.elements.button1 then
+    UIData.elements.button1.MouseButton1Click:Connect(function()
+        print("Button 1 clicked")
+    end)
+end
 
-                                    local Save = Instance.new("TextLabel")
-                                    Save.Name = "Save"
-                                    Save.Size = UDim2.new(0, 17, 0, 19)
-                                    Save.Position = UDim2.new(0.06285294145345688, 0, 0.658355712890625, 0)
-                                    Save.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                                    Save.BackgroundTransparency = 1
-                                    Save.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                                    Save.BorderSizePixel = 0
-                                    Save.Text = "Save"
-                                    Save.TextColor3 = Color3.fromRGB(255, 255, 255)
-                                    Save.TextSize = 13
-                                    Save.Font = Enum.Font.SourceSansBold
-                                    Save.Rotation = 270
-                                    Save.AnchorPoint = Vector2.new(0, 0)
-                                    Save.Parent = Option_2
+if UIData.elements.button2 then
+    UIData.elements.button2.MouseButton1Click:Connect(function()
+        print("Button 2 clicked")
+    end)
+end
 
-                                    local Toggle_2 = Instance.new("TextButton")
-                                    Toggle_2.Name = "Toggle"
-                                    Toggle_2.Size = UDim2.new(0, 15, 0, 15)
-                                    Toggle_2.Position = UDim2.new(0.15543530881404877, 0, 0.117156982421875, 0)
-                                    Toggle_2.BackgroundColor3 = Color3.fromRGB(150, 17, 255)
-                                    Toggle_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                                    Toggle_2.BorderSizePixel = 0
-                                    Toggle_2.Text = "✔"
-                                    Toggle_2.TextColor3 = Color3.fromRGB(1, 128, 203)
-                                    Toggle_2.TextSize = 10
-                                    Toggle_2.Font = Enum.Font.SourceSans
-                                    Toggle_2.TextWrapped = true
-                                    Toggle_2.Rotation = 270
-                                    Toggle_2.AnchorPoint = Vector2.new(0, 0)
+if UIData.elements.sliderLine and UIData.elements.sliderKnob and UIData.elements.sliderValueLabel then
+    UIData.elements.sliderDragging = false
+    local sLine, sKnob, sLabel = UIData.elements.sliderLine, UIData.elements.sliderKnob, UIData.elements.sliderValueLabel
 
-                                        local UICorner_17 = Instance.new("UICorner")
-                                        UICorner_17.Parent = Toggle_2
-                                    Toggle_2.Parent = Option_2
+    sLine.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            UIData.elements.sliderDragging = true
+            local x = input.Position.X
+            local absPos = sLine.AbsolutePosition.X
+            local absSize = sLine.AbsoluteSize.X
+        local alpha = math.clamp((x - absPos) / absSize, 0, 1)
+            sLabel.Text = tostring(math.floor(alpha * 100))
+            sKnob.Position = UDim2.new(0, alpha * (absSize - sKnob.AbsoluteSize.X), sKnob.Position.Y.Scale, sKnob.Position.Y.Offset)
+        end
+    end)
 
-                                    local UIStroke_4 = Instance.new("UIStroke")
-                                    UIStroke_4.Parent = Option_2
-                                Option_2.Parent = Option
-                            Option.Parent = Toggle_1Zone
-                        Toggle_1Zone.Parent = Section1
+    sLine.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            UIData.elements.sliderDragging = false
+        end
+    end)
+
+    UserInputService.InputChanged:Connect(function(input)
+        if UIData.elements.sliderDragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+            local x = input.Position.X
+            local absPos = sLine.AbsolutePosition.X
+            local absSize = sLine.AbsoluteSize.X
+            local alpha = math.clamp((x - absPos) / absSize, 0, 1)
+            sLabel.Text = tostring(math.floor(alpha * 100))
+            sKnob.Position = UDim2.new(0, alpha * (absSize - sKnob.AbsoluteSize.X), sKnob.Position.Y.Scale, sKnob.Position.Y.Offset)
+        end
+    end)
+end
+
+do
+    if UIData.elements.bindFrame and UIData.elements.bindKeyLabel and UIData.hotKey1KeyLabel then
+        UIData.elements.bindListening = false
+        UIData.elements.currentKey = Enum.KeyCode.B
+
+        local function setKey(keyCode)
+            UIData.elements.currentKey = keyCode
+            UIData.elements.bindKeyLabel.Text = keyCode.Name
+            UIData.hotKey1KeyLabel.Text = keyCode.Name
+        end
+
+        setKey(UIData.elements.currentKey)
+
+        UIData.elements.bindFrame.InputBegan:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                UIData.elements.bindListening = true
+                UIData.elements.bindKeyLabel.Text = "..."
+            end
+        end)
+
+        UserInputService.InputBegan:Connect(function(input, gp)
+            if gp then return end
+            if UIData.elements.bindListening and input.UserInputType == Enum.UserInputType.Keyboard then
+                UIData.elements.bindListening = false
+                if input.KeyCode ~= Enum.KeyCode.Unknown then
+                    setKey(input.KeyCode)
+                end
+            elseif input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == UIData.elements.currentKey then
+                UIData.main.Visible = not UIData.main.Visible
+            end
+        end)
+    end
+end
+
+if UIData.elements.inputFrame and UIData.elements.inputValueLabel then
+    UIData.elements.inputFrame.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            UIData.elements.inputValueLabel.Text = "Clicked " .. os.time()
+        end
+    end)
+end
+
+do
+    if UIData.elements.dropdownButton and UIData.elements.dropdownSelected and UIData.elements.dropdownArrow then
+        local options = {"Goida", "Svo", "Zov", "228"}
+        local closedSize = UIData.elements.dropdownButton.Size
+        local openSize = UDim2.new(0, 111, 0, 24 + #options * 18)
+        UIData.elements.dropdownOpened = false
+
+        local function toggleDropdown()
+            UIData.elements.dropdownOpened = not UIData.elements.dropdownOpened
+            TweenService:Create(UIData.elements.dropdownButton, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                Size = UIData.elements.dropdownOpened and openSize or closedSize,
+            }):Play()
+            TweenService:Create(UIData.elements.dropdownArrow, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                Rotation = UIData.elements.dropdownOpened and 180 or 0,
+            }):Play()
+        end
+
+        for i, name in ipairs(options) do
+            local opt = Instance.new("TextButton")
+            opt.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+            opt.BorderSizePixel = 0
+            opt.Size = UDim2.new(1, 0, 0, 18)
+            opt.Position = UDim2.new(0, 0, 0, 24 + (i - 1) * 18)
+            opt.Font = Enum.Font.SourceSans
+            opt.TextColor3 = Color3.fromRGB(255, 255, 255)
+            opt.TextSize = 12
+            opt.Text = name
+            opt.Parent = UIData.elements.dropdownButton
+
+            opt.MouseButton1Click:Connect(function()
+                UIData.elements.dropdownSelected.Text = name
+                toggleDropdown()
+            end)
+        end
+
+        UIData.elements.dropdownArrow.MouseButton1Click:Connect(function()
+            toggleDropdown()
+        end)
+
+        UIData.elements.dropdownSelected.MouseButton1Click:Connect(function()
+            toggleDropdown()
+        end)
+
+        UIData.elements.dropdownButton.MouseLeave:Connect(function()
+            task.wait(0.5)
+            if UIData.elements.dropdownOpened then
+                toggleDropdown()
+                TweenService:Create(UIData.elements.dropdownArrow, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                    Rotation = 0,
+                }):Play()
+            end
+        end)
+    end
+end
+
+_G.Library = Library
+
+return Library
 
                         local Toggle_2Zone_enabled_ = Instance.new("Frame")
                         Toggle_2Zone_enabled_.Name = "Toggle 2Zone(enabled)"
