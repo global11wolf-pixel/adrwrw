@@ -945,7 +945,7 @@ function Library:CreateToggle(section, name, callback, defaultState)
     
     local toggleZone = Instance.new("Frame")
     toggleZone.Name = "ToggleZone"
-    toggleZone.Size = UDim2.new(0, 210, 0, 30)
+    toggleZone.Size = UDim2.new(1, 0, 0, 30)
     toggleZone.Position = UDim2.new(0, 0, yOffset, 0)
     toggleZone.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     toggleZone.BackgroundTransparency = 0.7
@@ -1049,7 +1049,7 @@ function Library:CreateButton(section, name, callback)
     
     local buttonZone = Instance.new("Frame")
     buttonZone.Name = "ButtonZone"
-    buttonZone.Size = UDim2.new(0, 210, 0, 30)
+    buttonZone.Size = UDim2.new(1, 0, 0, 30)
     buttonZone.Position = UDim2.new(0, 0, yOffset, 0)
     buttonZone.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     buttonZone.BackgroundTransparency = 0.7
@@ -1121,7 +1121,7 @@ function Library:CreateSlider(section, name, min, max, default, callback)
     
     local sliderZone = Instance.new("Frame")
     sliderZone.Name = "SliderZone"
-    sliderZone.Size = UDim2.new(0, 210, 0, 30)
+    sliderZone.Size = UDim2.new(1, 0, 0, 30)
     sliderZone.Position = UDim2.new(0, 0, yOffset, 0)
     sliderZone.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     sliderZone.BackgroundTransparency = 0.7
@@ -1279,7 +1279,7 @@ function Library:CreateBind(section, name, defaultKey, callback)
     
     local bindZone = Instance.new("Frame")
     bindZone.Name = "BindZone"
-    bindZone.Size = UDim2.new(0, 210, 0, 30)
+    bindZone.Size = UDim2.new(1, 0, 0, 30)
     bindZone.Position = UDim2.new(0, 0, yOffset, 0)
     bindZone.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     bindZone.BackgroundTransparency = 0.7
@@ -1391,7 +1391,7 @@ function Library:CreateInput(section, name, placeholder, callback)
     
     local inputZone = Instance.new("Frame")
     inputZone.Name = "InputZone"
-    inputZone.Size = UDim2.new(0, 210, 0, 40)
+    inputZone.Size = UDim2.new(1, 0, 0, 40)
     inputZone.Position = UDim2.new(0, 0, yOffset, 0)
     inputZone.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     inputZone.BackgroundTransparency = 0.7
@@ -1483,7 +1483,7 @@ function Library:CreateDropdown(section, name, options, default, callback)
     
     local dropdownZone = Instance.new("Frame")
     dropdownZone.Name = "DropdownZone"
-    dropdownZone.Size = UDim2.new(0, 210, 0, 35)
+    dropdownZone.Size = UDim2.new(1, 0, 0, 35)
     dropdownZone.Position = UDim2.new(0, 0, yOffset, 0)
     dropdownZone.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     dropdownZone.BackgroundTransparency = 0.7
