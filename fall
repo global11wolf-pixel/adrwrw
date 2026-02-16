@@ -756,31 +756,30 @@ end
 
 -- Функция для получения следующей позиции элемента в секции
 local function getNextElementPosition(section)
-    local elementCount = 0
-    local sectionHeight = section.Size.Y.Offset or 100 -- Высота секции в пикселях (по умолчанию 100)
+    local maxY = 0
+    local sectionHeight = section.Size.Y.Offset or 100 -- Высота секции в пикселях
     
-    -- Считаем количество элементов Zone в секции
+    -- Находим максимальную Y позицию всех существующих элементов
     for _, child in ipairs(section:GetChildren()) do
         if child:IsA("Frame") and child.Name:match("Zone") then
-            elementCount = elementCount + 1
+            local childY = child.Position.Y.Scale
+            local childHeight = child.Size.Y.Scale
+            local endY = childY + childHeight
+            if endY > maxY then
+                maxY = endY
+            end
         end
     end
     
-    -- Высота одного элемента в пикселях (большинство элементов имеют высоту 30px)
-    local elementHeight = 30
-    -- Высота Input элемента (40px)
-    -- Высота Dropdown элемента (35px)
-    -- Но для простоты используем среднюю высоту 30px
+    -- Высота одного элемента в Scale (30px / 100px = 0.3)
+    local elementHeightScale = 30 / sectionHeight
     
-    -- Рассчитываем позицию: начальный отступ + (количество элементов * высота элемента) / высота секции
-    local startOffset = 0.01 -- Небольшой отступ от верха
-    local spacing = 0.01 -- Отступ между элементами
-    
-    if elementCount == 0 then
-        return startOffset
+    -- Если элементов нет, начинаем с небольшого отступа от верха
+    if maxY == 0 then
+        return 0.01
     else
-        -- Позиция = начальный отступ + (количество элементов * (высота элемента + отступ)) / высота секции
-        return startOffset + (elementCount * (elementHeight / sectionHeight + spacing))
+        -- Добавляем высоту элемента + небольшой отступ
+        return maxY + elementHeightScale + 0.01
     end
 end
 
@@ -991,13 +990,14 @@ function Library:CreateToggle(section, name, callback, defaultState)
     option.AnchorPoint = Vector2.new(0, 0)
     option.Parent = toggleZone
     
-    local toggleFrame = Instance.new("Frame")
+    local toggleFrame = Instance.new("TextButton")
     toggleFrame.Name = "Toggle"
     toggleFrame.Size = UDim2.new(0, 30, 0, 15)
     toggleFrame.Position = UDim2.new(0.761904776096344, 0, 0.23333333432674408, 0)
     toggleFrame.BackgroundColor3 = defaultState and Color3.fromRGB(150, 17, 255) or Color3.fromRGB(29, 29, 29)
     toggleFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
     toggleFrame.BorderSizePixel = 0
+    toggleFrame.Text = ""
     toggleFrame.AnchorPoint = Vector2.new(0, 0)
     
     local toggleCorner = Instance.new("UICorner")
