@@ -754,6 +754,832 @@ do
     end
 end
 
+-- Функция для получения следующей позиции элемента в секции
+local function getNextElementPosition(section)
+    local maxY = 0
+    for _, child in ipairs(section:GetChildren()) do
+        if child:IsA("Frame") and (child.Name:match("Zone") or child.Name:match("Section")) then
+            local y = child.Position.Y.Scale + child.Size.Y.Scale
+            if y > maxY then
+                maxY = y
+            end
+        end
+    end
+    return maxY
+end
+
+-- Объект Library с методами для создания элементов
+local Library = {}
+
+-- Функция для создания уведомлений
+function Library:CreateNotification(text, duration)
+    if not UIData.notificationTemplate or not UIData.notifiList then return end
+    duration = duration or 3
+    
+    local n = UIData.notificationTemplate:Clone()
+    n.Visible = true
+    n.Parent = UIData.notifiList
+    
+    local label = n:FindFirstChild("NotifiText", true)
+    if label and label:IsA("TextLabel") then
+        label.Text = text
+    end
+    
+    n.Position = UDim2.new(0, 0, 1, 0)
+    TweenService:Create(n, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+        Position = UDim2.new(0, 0, 0.5, 0),
+    }):Play()
+    
+    task.delay(duration, function()
+        if n.Parent then
+            TweenService:Create(n, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+                Position = UDim2.new(0, 0, 1, 0),
+            }):Play()
+            task.wait(0.3)
+            if n then n:Destroy() end
+        end
+    end)
+end
+
+-- Функция для создания таба
+function Library:CreateTab(name, index)
+    if not UIData.tabZone then return nil end
+    
+    local tabCount = #UIData.tabs
+    if index and index > 0 and index <= 5 then
+        -- Используем существующий таб или создаем новый
+        local existingTab = UIData.tabs[index]
+        if not existingTab then
+            -- Создаем новый таб
+            local tabButton = Instance.new("TextButton")
+            tabButton.Name = "Tab" .. index
+            tabButton.Size = UDim2.new(0, 130, 0, 30)
+            tabButton.Position = UDim2.new(0.0535714291036129, 0, 0.0535714291036129 + (index - 1) * 0.0892857201397419, 0)
+            tabButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            tabButton.BackgroundTransparency = index == 1 and 0.9 or 1
+            tabButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            tabButton.BorderSizePixel = 0
+            tabButton.Text = ""
+            tabButton.AnchorPoint = Vector2.new(0, 0)
+            
+            local tabLogo = Instance.new("ImageLabel")
+            tabLogo.Name = "TabLogo"
+            tabLogo.Size = UDim2.new(0, 20, 0, 20)
+            tabLogo.Position = UDim2.new(0.03076923079788685, 0, 0.1666666716337204, 0)
+            tabLogo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            tabLogo.BackgroundTransparency = 1
+            tabLogo.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            tabLogo.BorderSizePixel = 0
+            tabLogo.Image = "rbxassetid://125196888175857"
+            tabLogo.ImageColor3 = index == 1 and Color3.fromRGB(150, 17, 255) or Color3.fromRGB(161, 161, 161)
+            tabLogo.AnchorPoint = Vector2.new(0, 0)
+            tabLogo.Parent = tabButton
+            
+            local tabName = Instance.new("TextLabel")
+            tabName.Name = "TabName"
+            tabName.Size = UDim2.new(0, 88, 0, 23)
+            tabName.Position = UDim2.new(0.19230769574642181, 0, 0.13333334028720856, 0)
+            tabName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            tabName.BackgroundTransparency = 1
+            tabName.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            tabName.BorderSizePixel = 0
+            tabName.Text = name
+            tabName.TextColor3 = index == 1 and Color3.fromRGB(150, 17, 255) or Color3.fromRGB(161, 161, 161)
+            tabName.TextSize = 12
+            tabName.Font = Enum.Font.SourceSansBold
+            tabName.AnchorPoint = Vector2.new(0, 0)
+            tabName.Parent = tabButton
+            
+            local uiCorner = Instance.new("UICorner")
+            uiCorner.Parent = tabButton
+            
+            tabButton.Parent = UIData.tabZone
+            
+            tabButton.MouseButton1Click:Connect(function()
+                if _G.setTab then
+                    _G.setTab(index)
+                end
+            end)
+            
+            UIData.tabs[index] = tabButton
+            existingTab = tabButton
+        else
+            -- Обновляем имя существующего таба
+            local tabName = existingTab:FindFirstChild("TabName")
+            if tabName then
+                tabName.Text = name
+            end
+        end
+        
+        return existingTab
+    end
+    return nil
+end
+
+-- Функция для создания секции
+function Library:CreateSection(tabIndex, sectionName, position)
+    if not UIData.elementZone then return nil end
+    
+    local section = Instance.new("Frame")
+    section.Name = "Section" .. sectionName
+    section.Size = UDim2.new(0, 210, 0, 100)
+    section.Position = position or UDim2.new(0.020594965666532516, 0, 0.06666668504476547, 0)
+    section.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+    section.BackgroundTransparency = 0.6000000238418579
+    section.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    section.BorderSizePixel = 0
+    section.AnchorPoint = Vector2.new(0, 0)
+    
+    local sectionNameLabel = Instance.new("TextLabel")
+    sectionNameLabel.Name = "SectionName"
+    sectionNameLabel.Size = UDim2.new(0, 78, 0, 19)
+    sectionNameLabel.Position = UDim2.new(0.037837836891412735, 0, -0.1933334320783615, 0)
+    sectionNameLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    sectionNameLabel.BackgroundTransparency = 1
+    sectionNameLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    sectionNameLabel.BorderSizePixel = 0
+    sectionNameLabel.Text = sectionName
+    sectionNameLabel.TextColor3 = Color3.fromRGB(161, 161, 161)
+    sectionNameLabel.TextSize = 12
+    sectionNameLabel.Font = Enum.Font.SourceSansBold
+    sectionNameLabel.AnchorPoint = Vector2.new(0, 0)
+    sectionNameLabel.Parent = section
+    
+    local uiCorner = Instance.new("UICorner")
+    uiCorner.Parent = section
+    
+    local uiStroke = Instance.new("UIStroke")
+    uiStroke.Parent = section
+    
+    section.Parent = UIData.elementZone
+    
+    table.insert(UIData.sections, section)
+    
+    return section
+end
+
+-- Функция для создания тоггла
+function Library:CreateToggle(section, name, callback, defaultState)
+    if not section then return nil end
+    
+    defaultState = defaultState or false
+    local yOffset = getNextElementPosition(section)
+    
+    local toggleZone = Instance.new("Frame")
+    toggleZone.Name = "ToggleZone"
+    toggleZone.Size = UDim2.new(0, 210, 0, 30)
+    toggleZone.Position = UDim2.new(0, 0, yOffset, 0)
+    toggleZone.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    toggleZone.BackgroundTransparency = 1
+    toggleZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    toggleZone.BorderSizePixel = 0
+    toggleZone.AnchorPoint = Vector2.new(0, 0)
+    
+    local toggleName = Instance.new("TextLabel")
+    toggleName.Name = "ToggleName"
+    toggleName.Size = UDim2.new(0, 79, 0, 30)
+    toggleName.Position = UDim2.new(0.05122259259223938, 0, -0.03333333507180214, 0)
+    toggleName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    toggleName.BackgroundTransparency = 1
+    toggleName.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    toggleName.BorderSizePixel = 0
+    toggleName.Text = name
+    toggleName.TextColor3 = Color3.fromRGB(255, 255, 255)
+    toggleName.TextSize = 12
+    toggleName.Font = Enum.Font.SourceSansBold
+    toggleName.AnchorPoint = Vector2.new(0, 0)
+    toggleName.Parent = toggleZone
+    
+    local line = Instance.new("Frame")
+    line.Name = "Line"
+    line.Size = UDim2.new(0, 190, 0, 1)
+    line.Position = UDim2.new(0.054054055362939835, 0, 0.9937683343887329, 0)
+    line.BackgroundColor3 = Color3.fromRGB(161, 161, 161)
+    line.BackgroundTransparency = 0.949999988079071
+    line.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    line.BorderSizePixel = 0
+    line.AnchorPoint = Vector2.new(0, 0)
+    line.Parent = toggleZone
+    
+    local option = Instance.new("ImageButton")
+    option.Name = "Option"
+    option.Size = UDim2.new(0, 14, 0, 13)
+    option.Position = UDim2.new(0.9055657982826233, 0, 0.25839436054229736, 0)
+    option.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    option.BackgroundTransparency = 1
+    option.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    option.BorderSizePixel = 0
+    option.Image = "rbxassetid://136882854117051"
+    option.ImageColor3 = Color3.fromRGB(255, 255, 255)
+    option.Rotation = 90
+    option.AnchorPoint = Vector2.new(0, 0)
+    option.Parent = toggleZone
+    
+    local toggleFrame = Instance.new("Frame")
+    toggleFrame.Name = "Toggle"
+    toggleFrame.Size = UDim2.new(0, 30, 0, 15)
+    toggleFrame.Position = UDim2.new(0.761904776096344, 0, 0.23333333432674408, 0)
+    toggleFrame.BackgroundColor3 = defaultState and Color3.fromRGB(150, 17, 255) or Color3.fromRGB(29, 29, 29)
+    toggleFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    toggleFrame.BorderSizePixel = 0
+    toggleFrame.AnchorPoint = Vector2.new(0, 0)
+    
+    local toggleCorner = Instance.new("UICorner")
+    toggleCorner.Parent = toggleFrame
+    
+    local mover = Instance.new("Frame")
+    mover.Name = "Mover"
+    mover.Size = UDim2.new(0, 11, 0, 11)
+    mover.Position = defaultState and UDim2.new(0.6, 0, 0.125, 0) or UDim2.new(0, 2, 0.125, 0)
+    mover.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    mover.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    mover.BorderSizePixel = 0
+    mover.AnchorPoint = Vector2.new(0, 0)
+    
+    local moverCorner = Instance.new("UICorner")
+    moverCorner.Parent = mover
+    
+    mover.Parent = toggleFrame
+    toggleFrame.Parent = toggleZone
+    toggleZone.Parent = section
+    
+    local enabled = defaultState
+    
+    local function apply()
+        toggleFrame.BackgroundColor3 = enabled and Color3.fromRGB(150, 17, 255) or Color3.fromRGB(29, 29, 29)
+        local goal = {
+            Position = enabled and UDim2.new(0.6, 0, 0.125, 0) or UDim2.new(0, 2, 0.125, 0),
+        }
+        TweenService:Create(mover, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), goal):Play()
+    end
+    
+    -- Создаем уникальное имя флага на основе имени тоггла
+    local flagName = name:gsub("%s+", "") -- Убираем пробелы
+    Library.Flags[flagName] = defaultState
+    
+    toggleFrame.MouseButton1Click:Connect(function()
+        enabled = not enabled
+        apply()
+        if callback then callback(enabled) end
+    end)
+    
+    return {Zone = toggleZone, Toggle = toggleFrame, State = enabled, Callback = callback}
+end
+
+-- Функция для создания кнопки
+function Library:CreateButton(section, name, callback)
+    if not section then return nil end
+    
+    local yOffset = getNextElementPosition(section)
+    
+    local buttonZone = Instance.new("Frame")
+    buttonZone.Name = "ButtonZone"
+    buttonZone.Size = UDim2.new(0, 210, 0, 30)
+    buttonZone.Position = UDim2.new(0, 0, yOffset, 0)
+    buttonZone.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    buttonZone.BackgroundTransparency = 1
+    buttonZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    buttonZone.BorderSizePixel = 0
+    buttonZone.AnchorPoint = Vector2.new(0, 0)
+    
+    local buttonName = Instance.new("TextLabel")
+    buttonName.Name = "ButtonName"
+    buttonName.Size = UDim2.new(0, 79, 0, 30)
+    buttonName.Position = UDim2.new(0.05122259259223938, 0, -0.03333333507180214, 0)
+    buttonName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    buttonName.BackgroundTransparency = 1
+    buttonName.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    buttonName.BorderSizePixel = 0
+    buttonName.Text = name
+    buttonName.TextColor3 = Color3.fromRGB(255, 255, 255)
+    buttonName.TextSize = 12
+    buttonName.Font = Enum.Font.SourceSansBold
+    buttonName.AnchorPoint = Vector2.new(0, 0)
+    buttonName.Parent = buttonZone
+    
+    local line = Instance.new("Frame")
+    line.Name = "Line"
+    line.Size = UDim2.new(0, 190, 0, 1)
+    line.Position = UDim2.new(0.054054055362939835, 0, 0.9937683343887329, 0)
+    line.BackgroundColor3 = Color3.fromRGB(161, 161, 161)
+    line.BackgroundTransparency = 0.949999988079071
+    line.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    line.BorderSizePixel = 0
+    line.AnchorPoint = Vector2.new(0, 0)
+    line.Parent = buttonZone
+    
+    local button = Instance.new("TextButton")
+    button.Name = "Button"
+    button.Size = UDim2.new(0, 60, 0, 20)
+    button.Position = UDim2.new(0.7142857313156128, 0, 0.1666666716337204, 0)
+    button.BackgroundColor3 = Color3.fromRGB(150, 17, 255)
+    button.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    button.BorderSizePixel = 0
+    button.Text = ""
+    button.AnchorPoint = Vector2.new(0, 0)
+    
+    local buttonCorner = Instance.new("UICorner")
+    buttonCorner.Parent = button
+    
+    local buttonStroke = Instance.new("UIStroke")
+    buttonStroke.Parent = button
+    
+    button.Parent = buttonZone
+    buttonZone.Parent = section
+    
+    button.MouseButton1Click:Connect(function()
+        if callback then callback() end
+    end)
+    
+    return {Zone = buttonZone, Button = button}
+end
+
+-- Функция для создания слайдера
+function Library:CreateSlider(section, name, min, max, default, callback)
+    if not section then return nil end
+    
+    min = min or 0
+    max = max or 100
+    default = default or min
+    
+    local yOffset = getNextElementPosition(section)
+    
+    local sliderZone = Instance.new("Frame")
+    sliderZone.Name = "SliderZone"
+    sliderZone.Size = UDim2.new(0, 210, 0, 30)
+    sliderZone.Position = UDim2.new(0, 0, yOffset, 0)
+    sliderZone.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    sliderZone.BackgroundTransparency = 1
+    sliderZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    sliderZone.BorderSizePixel = 0
+    sliderZone.AnchorPoint = Vector2.new(0, 0)
+    
+    local sliderName = Instance.new("TextLabel")
+    sliderName.Name = "SliderName"
+    sliderName.Size = UDim2.new(0, 79, 0, 30)
+    sliderName.Position = UDim2.new(0.05122259259223938, 0, -0.03333333507180214, 0)
+    sliderName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    sliderName.BackgroundTransparency = 1
+    sliderName.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    sliderName.BorderSizePixel = 0
+    sliderName.Text = name
+    sliderName.TextColor3 = Color3.fromRGB(255, 255, 255)
+    sliderName.TextSize = 12
+    sliderName.Font = Enum.Font.SourceSansBold
+    sliderName.AnchorPoint = Vector2.new(0, 0)
+    sliderName.Parent = sliderZone
+    
+    local line = Instance.new("Frame")
+    line.Name = "Line"
+    line.Size = UDim2.new(0, 190, 0, 1)
+    line.Position = UDim2.new(0.054054055362939835, 0, 0.9937683343887329, 0)
+    line.BackgroundColor3 = Color3.fromRGB(161, 161, 161)
+    line.BackgroundTransparency = 0.949999988079071
+    line.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    line.BorderSizePixel = 0
+    line.AnchorPoint = Vector2.new(0, 0)
+    line.Parent = sliderZone
+    
+    local option = Instance.new("ImageButton")
+    option.Name = "Option"
+    option.Size = UDim2.new(0, 14, 0, 13)
+    option.Position = UDim2.new(0.9055657982826233, 0, 0.25839436054229736, 0)
+    option.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    option.BackgroundTransparency = 1
+    option.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    option.BorderSizePixel = 0
+    option.Image = "rbxassetid://136882854117051"
+    option.ImageColor3 = Color3.fromRGB(255, 255, 255)
+    option.Rotation = 90
+    option.AnchorPoint = Vector2.new(0, 0)
+    option.Parent = sliderZone
+    
+    local sliderLine = Instance.new("Frame")
+    sliderLine.Name = "SliderLine"
+    sliderLine.Size = UDim2.new(0, 80, 0, 4)
+    sliderLine.Position = UDim2.new(0.34169864654541016, 0, 0.4333333373069763, 0)
+    sliderLine.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+    sliderLine.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    sliderLine.BorderSizePixel = 0
+    sliderLine.AnchorPoint = Vector2.new(0, 0)
+    
+    local sliderCorner = Instance.new("UICorner")
+    sliderCorner.Parent = sliderLine
+    
+    local percent = (default - min) / (max - min)
+    local knob = Instance.new("Frame")
+    knob.Size = UDim2.new(0, 10, 0, 10)
+    knob.Position = UDim2.new(percent * 0.875, 0, -0.75, 0)
+    knob.BackgroundColor3 = Color3.fromRGB(150, 17, 255)
+    knob.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    knob.BorderSizePixel = 0
+    knob.AnchorPoint = Vector2.new(0, 0)
+    
+    local knobCorner = Instance.new("UICorner")
+    knobCorner.Parent = knob
+    knob.Parent = sliderLine
+    
+    local sliderStroke = Instance.new("UIStroke")
+    sliderStroke.Parent = sliderLine
+    sliderLine.Parent = sliderZone
+    
+    local sliderValue = Instance.new("Frame")
+    sliderValue.Name = "SliderValue"
+    sliderValue.Size = UDim2.new(0, 30, 0, 12)
+    sliderValue.Position = UDim2.new(0.7666666507720947, 0, 0.30000001192092896, 0)
+    sliderValue.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+    sliderValue.BorderColor3 = Color3.fromRGB(161, 161, 161)
+    sliderValue.BorderSizePixel = 0
+    sliderValue.AnchorPoint = Vector2.new(0, 0)
+    
+    local valueStroke = Instance.new("UIStroke")
+    valueStroke.Parent = sliderValue
+    
+    local valueLabel = Instance.new("TextLabel")
+    valueLabel.Size = UDim2.new(0, 29, 0, 10)
+    valueLabel.Position = UDim2.new(0.02702636644244194, 0, 0, 0)
+    valueLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    valueLabel.BackgroundTransparency = 1
+    valueLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    valueLabel.BorderSizePixel = 0
+    valueLabel.Text = tostring(math.floor(default))
+    valueLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    valueLabel.TextSize = 10
+    valueLabel.Font = Enum.Font.SourceSans
+    valueLabel.AnchorPoint = Vector2.new(0, 0)
+    valueLabel.Parent = sliderValue
+    sliderValue.Parent = sliderZone
+    sliderZone.Parent = section
+    
+    local dragging = false
+    local currentValue = default
+    
+    sliderLine.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            local x = input.Position.X
+            local absPos = sliderLine.AbsolutePosition.X
+            local absSize = sliderLine.AbsoluteSize.X
+            local alpha = math.clamp((x - absPos) / absSize, 0, 1)
+            currentValue = math.floor(min + alpha * (max - min))
+            valueLabel.Text = tostring(currentValue)
+            knob.Position = UDim2.new(alpha * 0.875, 0, -0.75, 0)
+            if callback then callback(currentValue) end
+        end
+    end)
+    
+    sliderLine.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = false
+        end
+    end)
+    
+    UserInputService.InputChanged:Connect(function(input)
+        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+            local x = input.Position.X
+            local absPos = sliderLine.AbsolutePosition.X
+            local absSize = sliderLine.AbsoluteSize.X
+            local alpha = math.clamp((x - absPos) / absSize, 0, 1)
+            currentValue = math.floor(min + alpha * (max - min))
+            valueLabel.Text = tostring(currentValue)
+            knob.Position = UDim2.new(alpha * 0.875, 0, -0.75, 0)
+            if callback then callback(currentValue) end
+        end
+    end)
+    
+    return {Zone = sliderZone, Value = currentValue, SetValue = function(val)
+        currentValue = math.clamp(val, min, max)
+        local alpha = (currentValue - min) / (max - min)
+        valueLabel.Text = tostring(math.floor(currentValue))
+        knob.Position = UDim2.new(alpha * 0.875, 0, -0.75, 0)
+        if callback then callback(currentValue) end
+    end}
+end
+
+-- Функция для создания бинда
+function Library:CreateBind(section, name, defaultKey, callback)
+    if not section then return nil end
+    
+    local yOffset = getNextElementPosition(section)
+    
+    local bindZone = Instance.new("Frame")
+    bindZone.Name = "BindZone"
+    bindZone.Size = UDim2.new(0, 210, 0, 30)
+    bindZone.Position = UDim2.new(0, 0, yOffset, 0)
+    bindZone.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    bindZone.BackgroundTransparency = 1
+    bindZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    bindZone.BorderSizePixel = 0
+    bindZone.AnchorPoint = Vector2.new(0, 0)
+    
+    local bindName = Instance.new("TextLabel")
+    bindName.Name = "BindName"
+    bindName.Size = UDim2.new(0, 79, 0, 30)
+    bindName.Position = UDim2.new(0.05122259259223938, 0, -0.03333333507180214, 0)
+    bindName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    bindName.BackgroundTransparency = 1
+    bindName.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    bindName.BorderSizePixel = 0
+    bindName.Text = name
+    bindName.TextColor3 = Color3.fromRGB(255, 255, 255)
+    bindName.TextSize = 12
+    bindName.Font = Enum.Font.SourceSansBold
+    bindName.AnchorPoint = Vector2.new(0, 0)
+    bindName.Parent = bindZone
+    
+    local line = Instance.new("Frame")
+    line.Name = "Line"
+    line.Size = UDim2.new(0, 190, 0, 1)
+    line.Position = UDim2.new(0.054054055362939835, 0, 0.9937683343887329, 0)
+    line.BackgroundColor3 = Color3.fromRGB(161, 161, 161)
+    line.BackgroundTransparency = 0.949999988079071
+    line.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    line.BorderSizePixel = 0
+    line.AnchorPoint = Vector2.new(0, 0)
+    line.Parent = bindZone
+    
+    local option = Instance.new("ImageButton")
+    option.Name = "Option"
+    option.Size = UDim2.new(0, 14, 0, 13)
+    option.Position = UDim2.new(0.9055657982826233, 0, 0.25839436054229736, 0)
+    option.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    option.BackgroundTransparency = 1
+    option.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    option.BorderSizePixel = 0
+    option.Image = "rbxassetid://136882854117051"
+    option.ImageColor3 = Color3.fromRGB(255, 255, 255)
+    option.Rotation = 90
+    option.AnchorPoint = Vector2.new(0, 0)
+    option.Parent = bindZone
+    
+    local bind = Instance.new("Frame")
+    bind.Name = "Bind"
+    bind.Size = UDim2.new(0, 60, 0, 15)
+    bind.Position = UDim2.new(0.6000000238418579, 0, 0.23333333432674408, 0)
+    bind.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+    bind.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    bind.BorderSizePixel = 0
+    bind.AnchorPoint = Vector2.new(0, 0)
+    
+    local bindCorner = Instance.new("UICorner")
+    bindCorner.Parent = bind
+    
+    local bindStroke = Instance.new("UIStroke")
+    bindStroke.Parent = bind
+    
+    local bindKeyLabel = Instance.new("TextLabel")
+    bindKeyLabel.Name = "BindName"
+    bindKeyLabel.Size = UDim2.new(0, 59, 0, 13)
+    bindKeyLabel.Position = UDim2.new(0, 0, 0, 0)
+    bindKeyLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    bindKeyLabel.BackgroundTransparency = 1
+    bindKeyLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    bindKeyLabel.BorderSizePixel = 0
+    bindKeyLabel.Text = defaultKey and defaultKey.Name or "None"
+    bindKeyLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    bindKeyLabel.TextSize = 12
+    bindKeyLabel.Font = Enum.Font.SourceSansBold
+    bindKeyLabel.AnchorPoint = Vector2.new(0, 0)
+    bindKeyLabel.Parent = bind
+    
+    bind.Parent = bindZone
+    bindZone.Parent = section
+    
+    local currentKey = defaultKey or Enum.KeyCode.Unknown
+    local listening = false
+    
+    bind.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            listening = true
+            bindKeyLabel.Text = "..."
+        end
+    end)
+    
+    UserInputService.InputBegan:Connect(function(input, gameProcessed)
+        if gameProcessed then return end
+        if listening and input.UserInputType == Enum.UserInputType.Keyboard then
+            listening = false
+            currentKey = input.KeyCode
+            bindKeyLabel.Text = input.KeyCode.Name
+            if callback then callback(input.KeyCode) end
+        end
+    end)
+    
+    return {Zone = bindZone, Key = currentKey}
+end
+
+-- Функция для создания Input поля
+function Library:CreateInput(section, name, placeholder, callback)
+    if not section then return nil end
+    
+    local yOffset = getNextElementPosition(section)
+    
+    local inputZone = Instance.new("Frame")
+    inputZone.Name = "InputZone"
+    inputZone.Size = UDim2.new(0, 210, 0, 40)
+    inputZone.Position = UDim2.new(0, 0, yOffset, 0)
+    inputZone.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    inputZone.BackgroundTransparency = 1
+    inputZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    inputZone.BorderSizePixel = 0
+    inputZone.AnchorPoint = Vector2.new(0, 0)
+    
+    local input = Instance.new("Frame")
+    input.Name = "Input"
+    input.Size = UDim2.new(0, 170, 0, 20)
+    input.Position = UDim2.new(0.09099999815225601, 0, 0.3499999940395355, 0)
+    input.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+    input.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    input.BorderSizePixel = 0
+    input.AnchorPoint = Vector2.new(0, 0)
+    
+    local inputCorner = Instance.new("UICorner")
+    inputCorner.Parent = input
+    
+    local inputStroke = Instance.new("UIStroke")
+    inputStroke.Parent = input
+    
+    local inputValue = Instance.new("TextLabel")
+    inputValue.Name = "InputValue"
+    inputValue.Size = UDim2.new(0, 150, 0, 19)
+    inputValue.Position = UDim2.new(0.05882352963089943, 0, 0, 0)
+    inputValue.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    inputValue.BackgroundTransparency = 1
+    inputValue.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    inputValue.BorderSizePixel = 0
+    inputValue.Text = placeholder or ""
+    inputValue.TextColor3 = Color3.fromRGB(255, 255, 255)
+    inputValue.TextSize = 10
+    inputValue.Font = Enum.Font.SourceSansBold
+    inputValue.AnchorPoint = Vector2.new(0, 0)
+    inputValue.Parent = input
+    
+    input.Parent = inputZone
+    
+    local inputName = Instance.new("TextLabel")
+    inputName.Name = "InputName"
+    inputName.Size = UDim2.new(0, 79, 0, 14)
+    inputName.Position = UDim2.new(0.13734690845012665, 0, -0.008328246884047985, 0)
+    inputName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    inputName.BackgroundTransparency = 1
+    inputName.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    inputName.BorderSizePixel = 0
+    inputName.Text = name
+    inputName.TextColor3 = Color3.fromRGB(255, 255, 255)
+    inputName.TextSize = 10
+    inputName.Font = Enum.Font.SourceSans
+    inputName.AnchorPoint = Vector2.new(0, 0)
+    inputName.Parent = inputZone
+    
+    local line = Instance.new("Frame")
+    line.Name = "Line"
+    line.Size = UDim2.new(0, 190, 0, 1)
+    line.Position = UDim2.new(0.054054055362939835, 0, 0.9937683343887329, 0)
+    line.BackgroundColor3 = Color3.fromRGB(161, 161, 161)
+    line.BackgroundTransparency = 0.949999988079071
+    line.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    line.BorderSizePixel = 0
+    line.AnchorPoint = Vector2.new(0, 0)
+    line.Parent = inputZone
+    inputZone.Parent = section
+    
+    input.InputBegan:Connect(function(inputObj)
+        if inputObj.UserInputType == Enum.UserInputType.MouseButton1 then
+            -- Можно добавить TextBox для ввода текста
+            if callback then callback(inputValue.Text) end
+        end
+    end)
+    
+    return {Zone = inputZone, SetText = function(text)
+        inputValue.Text = text
+    end, GetText = function()
+        return inputValue.Text
+    end}
+end
+
+-- Функция для создания Dropdown
+function Library:CreateDropdown(section, name, options, default, callback)
+    if not section then return nil end
+    
+    options = options or {}
+    default = default or (options[1] or "")
+    
+    local yOffset = getNextElementPosition(section)
+    
+    local dropdownZone = Instance.new("Frame")
+    dropdownZone.Name = "DropdownZone"
+    dropdownZone.Size = UDim2.new(0, 210, 0, 35)
+    dropdownZone.Position = UDim2.new(0, 0, yOffset, 0)
+    dropdownZone.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    dropdownZone.BackgroundTransparency = 1
+    dropdownZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    dropdownZone.BorderSizePixel = 0
+    dropdownZone.AnchorPoint = Vector2.new(0, 0)
+    
+    local line = Instance.new("Frame")
+    line.Name = "Line"
+    line.Size = UDim2.new(0, 190, 0, 1)
+    line.Position = UDim2.new(0.054054055362939835, 0, 0.9937683343887329, 0)
+    line.BackgroundColor3 = Color3.fromRGB(161, 161, 161)
+    line.BackgroundTransparency = 0.949999988079071
+    line.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    line.BorderSizePixel = 0
+    line.AnchorPoint = Vector2.new(0, 0)
+    line.Parent = dropdownZone
+    
+    local dropdownButton = Instance.new("Frame")
+    dropdownButton.Name = "DropdownButton"
+    dropdownButton.Size = UDim2.new(0, 111, 0, 24)
+    dropdownButton.Position = UDim2.new(0.4226510226726532, 0, 0.13420933485031128, 0)
+    dropdownButton.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+    dropdownButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    dropdownButton.BorderSizePixel = 0
+    dropdownButton.AnchorPoint = Vector2.new(0, 0)
+    dropdownButton.ClipsDescendants = true
+    
+    local dropdownCorner = Instance.new("UICorner")
+    dropdownCorner.Parent = dropdownButton
+    
+    local dropdownStroke = Instance.new("UIStroke")
+    dropdownStroke.Parent = dropdownButton
+    
+    local selected = Instance.new("TextLabel")
+    selected.Name = "Selected"
+    selected.Size = UDim2.new(0, 104, 0, 13)
+    selected.Position = UDim2.new(0.05585596710443497, 0, 0.2083333283662796, 0)
+    selected.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    selected.BackgroundTransparency = 1
+    selected.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    selected.BorderSizePixel = 0
+    selected.Text = default
+    selected.TextColor3 = Color3.fromRGB(255, 255, 255)
+    selected.TextSize = 12
+    selected.Font = Enum.Font.SourceSansBold
+    selected.AnchorPoint = Vector2.new(0, 0)
+    selected.Parent = dropdownButton
+    
+    local arrow = Instance.new("ImageButton")
+    arrow.Name = "Arrow"
+    arrow.Size = UDim2.new(0, 14, 0, 13)
+    arrow.Position = UDim2.new(0.9055657982826233, 0, 0.25839436054229736, 0)
+    arrow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    arrow.BackgroundTransparency = 1
+    arrow.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    arrow.BorderSizePixel = 0
+    arrow.Image = "rbxassetid://136882854117051"
+    arrow.ImageColor3 = Color3.fromRGB(255, 255, 255)
+    arrow.Rotation = 0
+    arrow.AnchorPoint = Vector2.new(0, 0)
+    arrow.Parent = dropdownButton
+    
+    dropdownButton.Parent = dropdownZone
+    dropdownZone.Parent = section
+    
+    local opened = false
+    local closedSize = dropdownButton.Size
+    local openSize = UDim2.new(0, 111, 0, 24 + #options * 18)
+    
+    local function toggleDropdown()
+        opened = not opened
+        TweenService:Create(dropdownButton, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            Size = opened and openSize or closedSize,
+        }):Play()
+        TweenService:Create(arrow, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            Rotation = opened and 180 or 0,
+        }):Play()
+    end
+    
+    for i, option in ipairs(options) do
+        local opt = Instance.new("TextButton")
+        opt.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+        opt.BorderSizePixel = 0
+        opt.Size = UDim2.new(1, 0, 0, 18)
+        opt.Position = UDim2.new(0, 0, 0, 24 + (i - 1) * 18)
+        opt.Font = Enum.Font.SourceSans
+        opt.TextColor3 = Color3.fromRGB(255, 255, 255)
+        opt.TextSize = 12
+        opt.Text = option
+        opt.Parent = dropdownButton
+        
+        opt.MouseButton1Click:Connect(function()
+            selected.Text = option
+            toggleDropdown()
+            if callback then callback(option) end
+        end)
+    end
+    
+    dropdownButton.MouseButton1Click:Connect(toggleDropdown)
+    arrow.MouseButton1Click:Connect(toggleDropdown)
+    
+    return {Zone = dropdownZone, Selected = default, SetSelected = function(value)
+        selected.Text = value
+        if callback then callback(value) end
+    end}
+end
+
+-- Сохраняем setTab в глобальную переменную
+_G.setTab = setTab
+
 _G.Library = Library
 
 return Library
