@@ -754,23 +754,38 @@ do
     end
 end
 
--- Функция для получения следующей позиции элемента в секции
-local function getNextElementPosition(section)
+-- Функция для обновления размера секции
+local function updateSectionSize(section)
     local maxY = 0
-    local sectionHeight = section.Size.Y.Offset or 100 -- Высота секции в пикселях
+    local minHeight = 50 -- Минимальная высота секции
     
     -- Находим максимальную Y позицию всех существующих элементов
     for _, child in ipairs(section:GetChildren()) do
         if child:IsA("Frame") and child.Name:match("Zone") then
-            local childY = child.Position.Y.Scale
-            -- Используем реальную высоту элемента в пикселях
-            local childHeightPx = child.Size.Y.Offset
-            if childHeightPx == 0 then
-                -- Если Offset = 0, используем Scale
-                childHeightPx = child.Size.Y.Scale * sectionHeight
+            local childY = child.Position.Y.Offset
+            local childHeight = child.Size.Y.Offset
+            local endY = childY + childHeight
+            if endY > maxY then
+                maxY = endY
             end
-            local childHeightScale = childHeightPx / sectionHeight
-            local endY = childY + childHeightScale
+        end
+    end
+    
+    -- Устанавливаем новую высоту секции с небольшим отступом снизу
+    local newHeight = math.max(minHeight, maxY + 20)
+    section.Size = UDim2.new(section.Size.X.Scale, section.Size.X.Offset, 0, newHeight)
+end
+
+-- Функция для получения следующей позиции элемента в секции
+local function getNextElementPosition(section)
+    local maxY = 0
+    
+    -- Находим максимальную Y позицию всех существующих элементов
+    for _, child in ipairs(section:GetChildren()) do
+        if child:IsA("Frame") and child.Name:match("Zone") then
+            local childY = child.Position.Y.Offset
+            local childHeight = child.Size.Y.Offset
+            local endY = childY + childHeight
             if endY > maxY then
                 maxY = endY
             end
@@ -779,10 +794,10 @@ local function getNextElementPosition(section)
     
     -- Если элементов нет, начинаем с небольшого отступа от верха
     if maxY == 0 then
-        return 0.01
+        return 5
     else
         -- Добавляем небольшой отступ между элементами
-        return maxY + 0.01
+        return maxY + 5
     end
 end
 
@@ -900,7 +915,7 @@ function Library:CreateSection(tabIndex, sectionName, position)
     
     local section = Instance.new("Frame")
     section.Name = "Section" .. sectionName
-    section.Size = UDim2.new(0, 210, 0, 100)
+    section.Size = UDim2.new(0, 210, 0, 50)
     section.Position = position or UDim2.new(0.020594965666532516, 0, 0.06666668504476547, 0)
     section.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
     section.BackgroundTransparency = 0.6000000238418579
@@ -1022,6 +1037,8 @@ function Library:CreateToggle(section, name, callback, defaultState)
     toggleFrame.Parent = toggleZone
     toggleZone.Parent = section
     
+    updateSectionSize(section)
+    
     local enabled = defaultState
     
     local function apply()
@@ -1101,6 +1118,8 @@ function Library:CreateButton(section, name, callback)
     
     button.Parent = buttonZone
     buttonZone.Parent = section
+    
+    updateSectionSize(section)
     
     button.MouseButton1Click:Connect(function()
         if callback then callback() end
@@ -1225,6 +1244,8 @@ function Library:CreateSlider(section, name, min, max, default, callback)
     valueLabel.Parent = sliderValue
     sliderValue.Parent = sliderZone
     sliderZone.Parent = section
+    
+    updateSectionSize(section)
     
     local dragging = false
     local currentValue = default
@@ -1360,6 +1381,8 @@ function Library:CreateBind(section, name, defaultKey, callback)
     bind.Parent = bindZone
     bindZone.Parent = section
     
+    updateSectionSize(section)
+    
     local currentKey = defaultKey or Enum.KeyCode.Unknown
     local listening = false
     
@@ -1458,6 +1481,8 @@ function Library:CreateInput(section, name, placeholder, callback)
     line.Parent = inputZone
     inputZone.Parent = section
     
+    updateSectionSize(section)
+    
     input.InputBegan:Connect(function(inputObj)
         if inputObj.UserInputType == Enum.UserInputType.MouseButton1 then
             -- Можно добавить TextBox для ввода текста
@@ -1550,6 +1575,8 @@ function Library:CreateDropdown(section, name, options, default, callback)
     
     dropdownButton.Parent = dropdownZone
     dropdownZone.Parent = section
+    
+    updateSectionSize(section)
     
     local opened = false
     local closedSize = dropdownButton.Size
