@@ -580,7 +580,7 @@ setTab(1)
 for i = 1, 5 do
     if UIData.tabs[i] then
         UIData.tabs[i].MouseButton1Click:Connect(function() setTab(i) end)
-    end
+end
 end
 
 local TweenService = game:GetService("TweenService")
@@ -793,9 +793,9 @@ local function getNextElementPosition(section)
             if endY > maxY then
                 maxY = endY
             end
-        end
     end
-    
+end
+
     -- Если элементов нет, начинаем с небольшого отступа от верха
     if maxY == 0 then
         return 5
@@ -812,21 +812,21 @@ local Library = {}
 function Library:CreateNotification(text, duration)
     if not UIData.notificationTemplate or not UIData.notifiList then return end
     duration = duration or 3
-    
+
     local n = UIData.notificationTemplate:Clone()
     n.Visible = true
     n.Parent = UIData.notifiList
-    
+
     local label = n:FindFirstChild("NotifiText", true)
     if label and label:IsA("TextLabel") then
         label.Text = text
     end
-    
+
     n.Position = UDim2.new(0, 0, 1, 0)
     TweenService:Create(n, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
         Position = UDim2.new(0, 0, 0.5, 0),
     }):Play()
-    
+
     task.delay(duration, function()
         if n.Parent then
             TweenService:Create(n, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
@@ -895,8 +895,8 @@ function Library:CreateTab(name, index)
             tabButton.MouseButton1Click:Connect(function()
                 if _G.setTab then
                     _G.setTab(index)
-                end
-            end)
+        end
+    end)
             
             UIData.tabs[index] = tabButton
             existingTab = tabButton
@@ -971,12 +971,6 @@ function Library:CreateToggle(section, name, callback, defaultState)
     toggleZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
     toggleZone.BorderSizePixel = 0
     toggleZone.AnchorPoint = Vector2.new(0, 0)
-    
-    local toggleZoneStroke = Instance.new("UIStroke")
-    toggleZoneStroke.Color = Color3.fromRGB(50, 50, 50)
-    toggleZoneStroke.Thickness = 1
-    toggleZoneStroke.Transparency = 0.5
-    toggleZoneStroke.Parent = toggleZone
     
     local toggleZoneCorner = Instance.new("UICorner")
     toggleZoneCorner.CornerRadius = UDim.new(0, 4)
@@ -1082,17 +1076,11 @@ function Library:CreateButton(section, name, callback)
     buttonZone.Name = "ButtonZone"
     buttonZone.Size = UDim2.new(1, 0, 0, 30)
     buttonZone.Position = UDim2.new(0, 0, 0, yOffset)
-    buttonZone.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    buttonZone.BackgroundTransparency = 0.7
+    buttonZone.BackgroundColor3 = Color3.fromRGB(150, 17, 255)
+    buttonZone.BackgroundTransparency = 0
     buttonZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
     buttonZone.BorderSizePixel = 0
     buttonZone.AnchorPoint = Vector2.new(0, 0)
-    
-    local buttonZoneStroke = Instance.new("UIStroke")
-    buttonZoneStroke.Color = Color3.fromRGB(50, 50, 50)
-    buttonZoneStroke.Thickness = 1
-    buttonZoneStroke.Transparency = 0.5
-    buttonZoneStroke.Parent = buttonZone
     
     local buttonZoneCorner = Instance.new("UICorner")
     buttonZoneCorner.CornerRadius = UDim.new(0, 4)
@@ -1171,12 +1159,6 @@ function Library:CreateSlider(section, name, min, max, default, callback)
     sliderZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
     sliderZone.BorderSizePixel = 0
     sliderZone.AnchorPoint = Vector2.new(0, 0)
-    
-    local sliderZoneStroke = Instance.new("UIStroke")
-    sliderZoneStroke.Color = Color3.fromRGB(50, 50, 50)
-    sliderZoneStroke.Thickness = 1
-    sliderZoneStroke.Transparency = 0.5
-    sliderZoneStroke.Parent = sliderZone
     
     local sliderZoneCorner = Instance.new("UICorner")
     sliderZoneCorner.CornerRadius = UDim.new(0, 4)
@@ -1342,12 +1324,6 @@ function Library:CreateBind(section, name, defaultKey, callback)
     bindZone.BorderSizePixel = 0
     bindZone.AnchorPoint = Vector2.new(0, 0)
     
-    local bindZoneStroke = Instance.new("UIStroke")
-    bindZoneStroke.Color = Color3.fromRGB(50, 50, 50)
-    bindZoneStroke.Thickness = 1
-    bindZoneStroke.Transparency = 0.5
-    bindZoneStroke.Parent = bindZone
-    
     local bindZoneCorner = Instance.new("UICorner")
     bindZoneCorner.CornerRadius = UDim.new(0, 4)
     bindZoneCorner.Parent = bindZone
@@ -1466,12 +1442,6 @@ function Library:CreateInput(section, name, placeholder, callback)
     inputZone.BorderSizePixel = 0
     inputZone.AnchorPoint = Vector2.new(0, 0)
     
-    local inputZoneStroke = Instance.new("UIStroke")
-    inputZoneStroke.Color = Color3.fromRGB(50, 50, 50)
-    inputZoneStroke.Thickness = 1
-    inputZoneStroke.Transparency = 0.5
-    inputZoneStroke.Parent = inputZone
-    
     local inputZoneCorner = Instance.new("UICorner")
     inputZoneCorner.CornerRadius = UDim.new(0, 4)
     inputZoneCorner.Parent = inputZone
@@ -1569,12 +1539,6 @@ function Library:CreateDropdown(section, name, options, default, callback)
     dropdownZone.BorderColor3 = Color3.fromRGB(0, 0, 0)
     dropdownZone.BorderSizePixel = 0
     dropdownZone.AnchorPoint = Vector2.new(0, 0)
-    
-    local dropdownZoneStroke = Instance.new("UIStroke")
-    dropdownZoneStroke.Color = Color3.fromRGB(50, 50, 50)
-    dropdownZoneStroke.Thickness = 1
-    dropdownZoneStroke.Transparency = 0.5
-    dropdownZoneStroke.Parent = dropdownZone
     
     local dropdownZoneCorner = Instance.new("UICorner")
     dropdownZoneCorner.CornerRadius = UDim.new(0, 4)
