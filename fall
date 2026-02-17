@@ -978,6 +978,10 @@ function Library:CreateToggle(section, name, callback, defaultState)
     toggleZoneStroke.Transparency = 0.5
     toggleZoneStroke.Parent = toggleZone
     
+    local toggleZoneCorner = Instance.new("UICorner")
+    toggleZoneCorner.CornerRadius = UDim.new(0, 4)
+    toggleZoneCorner.Parent = toggleZone
+    
     local toggleName = Instance.new("TextLabel")
     toggleName.Name = "ToggleName"
     toggleName.Size = UDim2.new(0, 79, 0, 30)
@@ -1090,6 +1094,10 @@ function Library:CreateButton(section, name, callback)
     buttonZoneStroke.Transparency = 0.5
     buttonZoneStroke.Parent = buttonZone
     
+    local buttonZoneCorner = Instance.new("UICorner")
+    buttonZoneCorner.CornerRadius = UDim.new(0, 4)
+    buttonZoneCorner.Parent = buttonZone
+    
     local buttonName = Instance.new("TextLabel")
     buttonName.Name = "ButtonName"
     buttonName.Size = UDim2.new(0, 79, 0, 30)
@@ -1169,6 +1177,10 @@ function Library:CreateSlider(section, name, min, max, default, callback)
     sliderZoneStroke.Thickness = 1
     sliderZoneStroke.Transparency = 0.5
     sliderZoneStroke.Parent = sliderZone
+    
+    local sliderZoneCorner = Instance.new("UICorner")
+    sliderZoneCorner.CornerRadius = UDim.new(0, 4)
+    sliderZoneCorner.Parent = sliderZone
     
     local sliderName = Instance.new("TextLabel")
     sliderName.Name = "SliderName"
@@ -1336,6 +1348,10 @@ function Library:CreateBind(section, name, defaultKey, callback)
     bindZoneStroke.Transparency = 0.5
     bindZoneStroke.Parent = bindZone
     
+    local bindZoneCorner = Instance.new("UICorner")
+    bindZoneCorner.CornerRadius = UDim.new(0, 4)
+    bindZoneCorner.Parent = bindZone
+    
     local bindName = Instance.new("TextLabel")
     bindName.Name = "BindName"
     bindName.Size = UDim2.new(0, 79, 0, 30)
@@ -1456,6 +1472,10 @@ function Library:CreateInput(section, name, placeholder, callback)
     inputZoneStroke.Transparency = 0.5
     inputZoneStroke.Parent = inputZone
     
+    local inputZoneCorner = Instance.new("UICorner")
+    inputZoneCorner.CornerRadius = UDim.new(0, 4)
+    inputZoneCorner.Parent = inputZone
+    
     local input = Instance.new("Frame")
     input.Name = "Input"
     input.Size = UDim2.new(0, 170, 0, 20)
@@ -1555,6 +1575,10 @@ function Library:CreateDropdown(section, name, options, default, callback)
     dropdownZoneStroke.Thickness = 1
     dropdownZoneStroke.Transparency = 0.5
     dropdownZoneStroke.Parent = dropdownZone
+    
+    local dropdownZoneCorner = Instance.new("UICorner")
+    dropdownZoneCorner.CornerRadius = UDim.new(0, 4)
+    dropdownZoneCorner.Parent = dropdownZone
     
     local line = Instance.new("Frame")
     line.Name = "Line"
