@@ -1125,9 +1125,6 @@ function Library:CreateButton(section, name, callback)
     local buttonCorner = Instance.new("UICorner")
     buttonCorner.Parent = button
     
-    local buttonStroke = Instance.new("UIStroke")
-    buttonStroke.Parent = button
-    
     button.Parent = buttonZone
     buttonZone.Parent = section
     
@@ -1380,9 +1377,6 @@ function Library:CreateBind(section, name, defaultKey, callback)
     local bindCorner = Instance.new("UICorner")
     bindCorner.Parent = bind
     
-    local bindStroke = Instance.new("UIStroke")
-    bindStroke.Parent = bind
-    
     local bindKeyLabel = Instance.new("TextLabel")
     bindKeyLabel.Name = "BindName"
     bindKeyLabel.Size = UDim2.new(0, 59, 0, 13)
@@ -1568,9 +1562,6 @@ function Library:CreateDropdown(section, name, options, default, callback)
     
     local dropdownCorner = Instance.new("UICorner")
     dropdownCorner.Parent = dropdownButton
-    
-    local dropdownStroke = Instance.new("UIStroke")
-    dropdownStroke.Parent = dropdownButton
     
     local selected = Instance.new("TextLabel")
     selected.Name = "Selected"
