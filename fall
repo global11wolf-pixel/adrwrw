@@ -83,7 +83,7 @@ function UILibrary.new(config)
         closeAllColorPickers()
     end
 
-    -- Создаем основной1 UI
+    -- Создаем основной UI
     local UI = Instance.new("ScreenGui")
     UI.Name = "UI"
     UI.Parent = game:GetService("CoreGui")
